@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS user_pages (
     user_id INT NOT NULL,
     page_name VACHAR(20) NOT NULL, 
     UNIQUE KEY uniq_user_page (user_id, page_name),
-    FOREIGN KEY (user_id) REFERENCE users (id) ON DELETE CASCADE 
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE 
 );
