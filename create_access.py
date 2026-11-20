@@ -18,9 +18,9 @@ try:
             if not row:
                 print(f"skip: user {username} not found (run create_users.py first)")
                 continue
-            cur.execute("DELETE FROM user_page WHERE user_id = %s", (row["id"],))
+            cur.execute("DELETE FROM user_pages WHERE user_id = %s", (row["id"],))
             for page in pages:
-                cur.execute("INSERT INTO user_page (user_id, page_name) VALUES (%s, %s)", (row["id"], page))
+                cur.execute("INSERT INTO user_pages (user_id, page_name) VALUES (%s, %s)", (row["id"], page))
             print(f"access set: {username} -> {pages}")
     conn.commit()
 finally:
