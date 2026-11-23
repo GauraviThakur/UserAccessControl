@@ -1,3 +1,29 @@
+<!--
+    Access Denied HTML Template
+
+    Purpose:
+        Displays an access-denied message when a logged-in user
+        attempts to open a page they are not authorized to access.
+
+    Features:
+        1. Displays an access-denied heading.
+        2. Shows the user's name using the __NAME__ placeholder.
+        3. Displays the restricted page name using the __PAGE__ placeholder.
+        4. Provides a link to return to the home page.
+
+    Dynamic Placeholders:
+        __NAME__: Replaced with the authenticated user's name.
+        __PAGE__: Replaced with the name of the restricted page.
+
+    CSS Files:
+        /static/style.css: Provides common application styling.
+        /static/access.css: Provides access-control page styling.
+
+    Template Usage:
+        Loaded by the access-control route when a user attempts
+        to access a page without the required permission.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,3 +1,34 @@
+<!--
+    Home Page HTML Template
+
+    Purpose:
+        Displays the home page for authenticated users in the
+        User Access Control application.
+
+    Features:
+        1. Displays a welcome message with the logged-in user's name.
+        2. Shows the list of pages assigned to the logged-in user.
+        3. Provides navigation links to authorized pages.
+        4. Provides a logout link to end the user's session.
+
+    Dynamic Placeholders:
+        __NAME__:
+            Replaced with the full name of the logged-in user.
+
+        __LINKS__:
+            Replaced with the HTML list items containing links
+            to pages the user is authorized to access.
+
+    CSS Files:
+        /static/style.css:
+            Provides styling for the home page layout,
+            card, navigation links, and other elements.
+
+    Template Usage:
+        Loaded by the home route after successful authentication.
+        The route retrieves the user's assigned pages and replaces
+        the dynamic placeholders before returning the HTML response.
+-->
 
 <!DOCTYPE html>
 <html lang="en">

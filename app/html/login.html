@@ -1,3 +1,43 @@
+<!--
+    Login Page HTML Template
+
+    Purpose:
+        Provides a login form for users to authenticate themselves
+        in the User Access Control application.
+
+    Features:
+        1. Accepts the user's username.
+        2. Accepts the user's password.
+        3. Validates that both fields are filled in before submission.
+        4. Submits login credentials to the /login endpoint using POST.
+        5. Displays an error message when authentication fails.
+
+    Form Fields:
+        username:
+            Accepts the username entered by the user.
+
+        password:
+            Accepts the user's password as hidden text.
+
+    Dynamic Placeholders:
+        __ERROR__:
+            Replaced with an HTML error message when login fails.
+            Replaced with an empty string when there is no error.
+
+    Form Configuration:
+        method="post": Sends login data using the HTTP POST method.
+        action="/login": Submits the form to the FastAPI login endpoint.
+
+    CSS Files:
+        /static/style.css:
+            Provides styling for the login form, input fields,
+            buttons, and page layout.
+
+    Template Usage:
+        Loaded by the login_form route when a user visits the login page.
+        The login route also loads this template to display authentication
+        errors when the submitted credentials are incorrect.
+-->
 
 <!DOCTYPE html>
 <html lang="en">
