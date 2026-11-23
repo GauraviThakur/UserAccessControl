@@ -50,9 +50,37 @@ def root(request: Request) -> RedirectResponse:
     )
 
 
+
 @router.get("/login", response_class=HTMLResponse)
-def login_form():
-    return load_html("login.html").replace("__ERROR__", "")
+def login_form() -> HTMLResponse:
+    """
+    Display the login page to the user.
+
+    Args:
+        None: This function does not require any input parameters.
+
+    What it does:
+        1. Handles GET requests to the "/login" URL.
+        2. Loads the login.html file.
+        3. Replaces the "__ERROR__" placeholder with an empty string.
+           This ensures that no error message is displayed initially.
+        4. Returns the updated HTML content as a response.
+
+    Returns:
+        HTMLResponse: Returns the login page HTML content
+                      with the error message placeholder cleared.
+
+    Example:
+        Request:
+            GET /login
+
+        Output:
+            Displays the login page without an error message.
+    """
+
+    return HTMLResponse(
+        load_html("login.html").replace("__ERROR__", "")
+    )
 
 
 @router.post("/login", response_class=HTMLResponse)
