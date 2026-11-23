@@ -6,6 +6,9 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from .db import get_connection
 from .utils import load_html, current_user
 
+from collections.abc import Callable
+from starlette.responses import Response
+
 router = APIRouter()
 
 PAGES = ["page1", "page2", "page3", "page4"]
@@ -66,14 +69,15 @@ def get_user_pages(user_id):
         conn.close()
         
 
-def make_page_route(page_name: str):
+
+def make_page_route(page_name: str) -> Callable[[Request], Response]:
     """
-    Create a page route handler with user authentication
-    and page access permission checks.
+    Create a page route handler with authentication
+    and authorization checks.
 
     Args:
         page_name (str): Name of the HTML page to access.
-                        Example: "page1", "page2", "dashboard".
+                         Example: "page1", "page2", "dashboard".
 
     What it does:
         1. Creates an inner function named page_view().
@@ -81,69 +85,63 @@ def make_page_route(page_name: str):
         3. Redirects unauthenticated users to the login page.
         4. Checks whether the requested page is assigned
            to the logged-in user.
-        5. If access is denied, displays the denied.html page
-           with the user's name and requested page name.
-        6. If access is allowed, loads and displays the
-           requested HTML page.
+        5. If access is denied, displays the denied.html page.
+        6. If access is allowed, displays the requested HTML page.
 
     Returns:
-        Callable[[Request], HTMLResponse | RedirectResponse]:
+        Callable[[Request], Response]:
             Returns a page_view function that accepts an HTTP
-            Request and returns an HTTP response.
+            Request and returns an HTTP Response.
 
     Example:
-        Input:
-            make_page_route("page1")
+        make_page_route("page1")
 
-        Output:
-            Returns a page_view function for page1.
+        Returns a page handler for page1.
     """
 
-    def page_view(
-        request: Request
-    ) -> HTMLResponse | RedirectResponse:
+    def page_view(request: Request) -> Response:
 
         # Get the currently logged-in user
         user = current_user(request)
 
-        # Check whether the user is logged in
+        # Redirect if the user is not logged in
         if not user:
             return RedirectResponse(
                 "/login",
                 status_code=303
             )
 
-        # Check whether the requested page is assigned to the user
+        # Check whether the user has permission to access the page
         if page_name not in get_user_pages(user["id"]):
 
-            # Load the access-denied HTML template
+            # Load the access-denied HTML page
             html = load_html("denied.html")
 
-            # Insert the user's full name into the HTML
+            # Insert the user's name
             html = html.replace(
                 "__NAME__",
                 escape(user["full_name"])
             )
 
-            # Insert the requested page name into the HTML
+            # Insert the requested page name
             html = html.replace(
                 "__PAGE__",
                 page_name.replace("page", "Page ")
             )
 
-            # Return access-denied response
+            # Return forbidden response
             return HTMLResponse(
                 html,
                 status_code=403
             )
 
-        # Load and return the requested HTML page
+        # Return the requested HTML page
         return HTMLResponse(
             load_html(page_name + ".html")
         )
 
-    # Return the inner page-view function
     return page_view
+
 
 for name in PAGES:
     router.add_api_route(f"/{name}", make_page_route(name), methods=["GET"], response_class=HTMLResponse)
