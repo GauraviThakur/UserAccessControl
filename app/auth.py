@@ -208,18 +208,86 @@ def logout(request: Request) -> RedirectResponse:
     )
 
 
+
 @router.get("/home", response_class=HTMLResponse)
-def home(request: Request):
+def home(request: Request) -> Response:
+    """
+    Display the home page with the logged-in user's details
+    and assigned page links.
+
+    Args:
+        request (Request): Incoming HTTP request object.
+                           Used to identify the currently logged-in user
+                           and access session information.
+
+    What it does:
+        1. Handles GET requests to the "/home" URL.
+        2. Checks whether the user is logged in using current_user().
+        3. If the user is not logged in, redirects them to "/login".
+        4. Retrieves the list of pages assigned to the user
+           using get_user_pages().
+        5. If the user has assigned pages:
+           - Generates HTML list items containing links to each page.
+           - Replaces "page" in page names with "Page " for display.
+        6. If no pages are assigned, displays a message:
+           "No pages assigned to you yet."
+        7. Loads the home.html template.
+        8. Replaces the "__NAME__" placeholder with the user's
+           escaped full name.
+        9. Replaces the "__LINKS__" placeholder with the generated
+           page links or the no-pages message.
+        10. Returns the updated home page as an HTML response.
+
+    Returns:
+        Response:
+            RedirectResponse: Redirects unauthenticated users
+                              to "/login" with status code 303.
+
+            HTMLResponse: Displays the home page with the user's
+                          name and assigned page links.
+
+    Example:
+        Logged-in user with assigned pages:
+            Displays the home page with the user's name
+            and available page links.
+
+        Logged-in user without assigned pages:
+            Displays "No pages assigned to you yet."
+
+        Unauthenticated user:
+            Redirects to "/login".
+    """
+
+    # Get the currently logged-in user
     user = current_user(request)
+
+    # Redirect to login if the user is not authenticated
     if not user:
         return RedirectResponse("/login", status_code=303)
 
+    # Retrieve all pages assigned to the user
     pages = get_user_pages(user["id"])
+
+    # Generate HTML links for assigned pages
     if pages:
-        links = "".join(f'<li><a href="/{p}">{p.replace("page", "Page ")}</a></li>' for p in pages)
+        links = "".join(
+            f'<li><a href="/{p}">{p.replace("page", "Page ")}</a></li>'
+            for p in pages
+        )
     else:
+        # Display a message if no pages are assigned
         links = "<li>No pages assigned to you yet.</li>"
 
+    # Load the home page HTML template
     html = load_html("home.html")
-    html = html.replace("__NAME__", escape(user["full_name"])).replace("__LINKS__", links)
+
+    # Replace placeholders with user details and page links
+    html = html.replace(
+        "__NAME__", escape(user["full_name"])
+    ).replace(
+        "__LINKS__", links
+    )
+
+    # Return the updated home page
     return HTMLResponse(html)
+
