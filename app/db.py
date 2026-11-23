@@ -6,6 +6,33 @@ load_dotenv()
 
 
 def get_connection():
+    """
+    Create and return a connection to the MySQL database.
+
+    Reads the database configuration from environment variables:
+        DB_HOST: Database server hostname (default: localhost).
+        DB_PORT: Database server port (default: 3306).
+        DB_USER: Database username (default: root).
+        DB_PASSWORD: Database password.
+        DB_NAME: Database name (default: access_demo).
+
+    Uses DictCursor so query results are returned as dictionaries,
+    allowing columns to be accessed by their names.
+
+    Returns:
+        pymysql.connections.Connection: An active MySQL database connection.
+
+    Raises:
+        pymysql.MySQLError: If the database connection cannot be established.
+        ValueError: If DB_PORT contains an invalid integer value.
+
+    Example:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users")
+        users = cursor.fetchall()
+        conn.close()
+    """
     return pymysql.connect(
         host=os.getenv("DB_HOST", "localhost"),
         port=int(os.getenv("DB_PORT", 3306)),
