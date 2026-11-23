@@ -64,85 +64,85 @@ def get_user_pages(user_id):
     finally:
         # Always close the database connection
         conn.close()
+        
 
-
-
-def make_page_route(page_name: str) -> Callable[[Request], Union[RedirectResponse, HTMLResponse]]:
+def make_page_route(page_name: str):
     """
-    Create a page route with user authentication and authorization checks.
+    Create a page route handler with user authentication
+    and page access permission checks.
 
     Args:
-        page_name (str): Name of the page to be accessed.
-                         Example: "page1", "page2", "dashboard".
+        page_name (str): Name of the HTML page to access.
+                        Example: "page1", "page2", "dashboard".
 
     What it does:
-        1. Accepts a page name as input.
-        2. Creates an inner function called page_view().
-        3. When a user requests the page:
-            a. Checks whether the user is logged in.
-            b. If not logged in, redirects the user to the login page.
-            c. Checks whether the requested page is in the user's
-               allowed page list.
-            d. If access is denied, displays the denied.html page
-               with the user's name and requested page name.
-            e. If access is allowed, loads and displays the
-               requested HTML page.
+        1. Creates an inner function named page_view().
+        2. Checks whether the user is logged in.
+        3. Redirects unauthenticated users to the login page.
+        4. Checks whether the requested page is assigned
+           to the logged-in user.
+        5. If access is denied, displays the denied.html page
+           with the user's name and requested page name.
+        6. If access is allowed, loads and displays the
+           requested HTML page.
 
     Returns:
-        Callable[[Request], Union[RedirectResponse, HTMLResponse]]:
-            Returns the inner page_view function.
-
-            The inner function accepts a Request object and returns:
-                - RedirectResponse: If the user is not logged in.
-                - HTMLResponse: If access is denied or granted.
+        Callable[[Request], HTMLResponse | RedirectResponse]:
+            Returns a page_view function that accepts an HTTP
+            Request and returns an HTTP response.
 
     Example:
         Input:
             make_page_route("page1")
 
-        Returns:
-            A page_view function that handles requests for page1.
-
+        Output:
+            Returns a page_view function for page1.
     """
 
-    def page_view(request: Request) -> Union[RedirectResponse, HTMLResponse]:
-        """
-        Handle the request and check user authentication and authorization.
+    def page_view(
+        request: Request
+    ) -> HTMLResponse | RedirectResponse:
 
-        Args:
-            request (Request): Incoming FastAPI HTTP request.
-
-        Returns:
-            RedirectResponse or HTMLResponse:
-                Redirects to login or returns the appropriate HTML page.
-        """
-
-        # Step 1: Get the currently logged-in user
+        # Get the currently logged-in user
         user = current_user(request)
 
-        # Step 2: Check whether the user is logged in
+        # Check whether the user is logged in
         if not user:
-            return RedirectResponse("/login", status_code=303)
+            return RedirectResponse(
+                "/login",
+                status_code=303
+            )
 
-        # Step 3: Check whether the user has permission to access this page
+        # Check whether the requested page is assigned to the user
         if page_name not in get_user_pages(user["id"]):
 
-            # Load the access denied HTML page
+            # Load the access-denied HTML template
             html = load_html("denied.html")
 
-            # Replace the placeholder with the user's full name
-            html = html.replace("__NAME__", escape(user["full_name"]))
+            # Insert the user's full name into the HTML
+            html = html.replace(
+                "__NAME__",
+                escape(user["full_name"])
+            )
 
-            # Replace the placeholder with the requested page name
-            html = html.replace("__PAGE__", page_name.replace("page", "Page "))
+            # Insert the requested page name into the HTML
+            html = html.replace(
+                "__PAGE__",
+                page_name.replace("page", "Page ")
+            )
 
-            # Return access denied response
-            return HTMLResponse(html, status_code=403)
+            # Return access-denied response
+            return HTMLResponse(
+                html,
+                status_code=403
+            )
 
-        # Step 4: User is authorized, so load the requested page
-        return HTMLResponse(load_html(page_name + ".html"))
+        # Load and return the requested HTML page
+        return HTMLResponse(
+            load_html(page_name + ".html")
+        )
 
-    # Step 5: Return the inner function
+    # Return the inner page-view function
     return page_view
 
 for name in PAGES:
