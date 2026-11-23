@@ -1,4 +1,32 @@
-"""MEMBER B: which user can open which page (page1 - page4)."""
+"""
+Access Control module for the User Access Control application.
+
+This module defines the API router and configuration required to manage
+protected pages and control user access based on assigned permissions.
+
+It uses FastAPI routing, database connections, session-based authentication,
+and HTML response handling to provide authorized access to application pages.
+
+Imports:
+    escape: Escapes special HTML characters to help prevent HTML injection.
+    APIRouter: Creates a router for registering application endpoints.
+    Request: Provides access to request and session information.
+    HTMLResponse: Returns HTML content as an HTTP response.
+    RedirectResponse: Redirects users to another URL.
+    get_connection: Establishes a connection to the MySQL database.
+    load_html: Loads HTML files from the application's HTML directory.
+    current_user: Retrieves the currently authenticated user.
+    Callable: Represents a function that can be called.
+    Response: Base response class for HTML and redirect responses.
+
+Global Variables:
+    router (APIRouter): Router used to register access-control endpoints.
+    PAGES (list[str]): List of protected page names managed by this module.
+
+Protected Pages:
+    page1, page2, page3, page4
+"""
+
 from html import escape
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -12,8 +40,6 @@ from starlette.responses import Response
 router = APIRouter()
 
 PAGES = ["page1", "page2", "page3", "page4"]
-
-
 
 def get_user_pages(user_id):
     """
