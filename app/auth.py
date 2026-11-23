@@ -2,6 +2,7 @@
 from html import escape
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
+from starlette.responses import Response
 
 from .db import get_user_by_username
 from .security import verify_password
@@ -89,7 +90,7 @@ def login(
     request: Request,
     username: str = Form(...),
     password: str = Form(...)
-) -> HTMLResponse | RedirectResponse:
+) -> Response:
     """
     Authenticate a user using their username and password.
 
