@@ -38,6 +38,30 @@ def load_html(file_name: str) -> str:
 
 
 def current_user(request: Request):
-    """Return the logged-in user row, or None. Login (Member A) sets session['user_id']."""
+    """
+    Retrieve the currently logged-in user's database record.
+
+    Reads the user_id from the request session and uses get_user_by_id()
+    to retrieve the corresponding user record from the database.
+
+    The login function (Member A) stores the user's ID in the session
+    after successful authentication.
+
+    Args:
+        request (Request): The incoming FastAPI request containing
+            the user's session information.
+
+    Returns:
+        dict | None: The logged-in user's database record if a valid
+        user_id exists in the session; otherwise, None.
+
+    Example:
+        user = current_user(request)
+
+        if user:
+            print(user["username"])
+        else:
+            print("User is not logged in.")
+    """
     user_id = request.session.get("user_id")
     return get_user_by_id(user_id) if user_id else None
