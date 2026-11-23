@@ -1,3 +1,24 @@
+"""
+Database configuration module for the User Access Control application.
+
+This module imports the required libraries and loads environment
+variables used for connecting to the MySQL database.
+
+Imports:
+    os: Provides functions to access environment variables and
+        handle operating system paths.
+    pymysql: Provides MySQL database connectivity and query execution.
+    load_dotenv: Loads database configuration variables from a .env file.
+
+Configuration:
+    load_dotenv(): Loads environment variables from the .env file
+    into the application's environment.
+
+Purpose:
+    Provides the database configuration required by other modules
+    to establish MySQL database connections.
+"""
+
 import os
 import pymysql
 from dotenv import load_dotenv
