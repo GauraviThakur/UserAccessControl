@@ -21,4 +21,23 @@ def hash_password(plain_password: str) -> str:
     return bcrypt.hashpw(plain_password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
 def verify_password(plain_password: str, password_hash: str) -> bool:
+    """
+    Verify a plain-text password against an existing bcrypt password hash.
+
+    Encodes the provided password and stored hash into UTF-8 bytes,
+    then uses bcrypt to check whether the password matches the hash.
+
+    Args:
+        plain_password (str): The plain-text password entered by the user.
+        password_hash (str): The previously stored bcrypt password hash.
+
+    Returns:
+        bool: True if the password matches the stored hash;
+              otherwise, False.
+
+    Example:
+        hashed = hash_password("admin123")
+        is_valid = verify_password("admin123", hashed)
+        print(is_valid)  # True
+    """
     return bcrypt.checkpw(plain_password.encode("utf-8"), password_hash.encode("utf-8"))
