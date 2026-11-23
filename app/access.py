@@ -11,15 +11,60 @@ router = APIRouter()
 PAGES = ["page1", "page2", "page3", "page4"]
 
 
+
 def get_user_pages(user_id):
-    """Return the list of pages this user may open, e.g. ['page1', 'page2']."""
+    """
+    Get all pages that a specific user is allowed to access.
+
+    Args:
+        user_id (int or str): Unique ID of the user.
+
+    What it does:
+        1. Connects to the database.
+        2. Fetches all page names assigned to the given user_id
+           from the user_pages table.
+        3. Sorts the page names alphabetically.
+        4. Closes the database connection.
+
+    Returns:
+        list[str]: A list of page names assigned to the user.
+                   Returns an empty list if no pages are assigned.
+
+    Example:
+        Input:
+            get_user_pages(101)
+
+        Output:
+            ['Attendance', 'Dashboard', 'Employee']
+    """
+
+    # Establish database connection
     conn = get_connection()
+
     try:
+        # Create database cursor
         with conn.cursor() as cur:
-            cur.execute("SELECT page_name FROM user_pages WHERE user_id = %s ORDER BY page_name", (user_id,))
-            return [row["page_name"] for row in cur.fetchall()]
+
+            # Fetch all pages assigned to the user
+            cur.execute(
+                """
+                SELECT page_name
+                FROM user_pages
+                WHERE user_id = %s
+                ORDER BY page_name
+                """,
+                (user_id,)
+            )
+
+            # Extract page names and return them as a list
+            pages = [row["page_name"] for row in cur.fetchall()]
+
+            return pages
+
     finally:
+        # Always close the database connection
         conn.close()
+
 
 
 def make_page_route(page_name):
