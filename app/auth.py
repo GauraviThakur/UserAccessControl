@@ -169,10 +169,43 @@ def login(
     )
 
 
+
 @router.get("/logout")
-def logout(request: Request):
+def logout(request: Request) -> RedirectResponse:
+    """
+    Log out the currently authenticated user.
+
+    Args:
+        request (Request): Incoming HTTP request object.
+                           Used to access and manage the user's session.
+
+    What it does:
+        1. Handles GET requests to the "/logout" URL.
+        2. Clears all data stored in the user's session.
+        3. Removes the user's login information from the session.
+        4. Redirects the user to the login page.
+        5. Uses HTTP status code 303 for redirection.
+
+    Returns:
+        RedirectResponse: Redirects the user to "/login"
+                          after clearing the session.
+
+    Example:
+        Request:
+            GET /logout
+
+        Output:
+            Clears the user session and redirects to "/login".
+    """
+
+    # Clear all session data
     request.session.clear()
-    return RedirectResponse("/login", status_code=303)
+
+    # Redirect the user to the login page
+    return RedirectResponse(
+        "/login",
+        status_code=303
+    )
 
 
 @router.get("/home", response_class=HTMLResponse)
