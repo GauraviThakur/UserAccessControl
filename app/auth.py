@@ -11,9 +11,43 @@ from .access import get_user_pages  # written by Member B: returns e.g. ["page1"
 router = APIRouter()
 
 
+
 @router.get("/")
-def root(request: Request):
-    return RedirectResponse("/home" if request.session.get("user_id") else "/login", status_code=303)
+def root(request: Request) -> RedirectResponse:
+    """
+    Handle requests to the root URL ("/") and redirect users
+    based on their login status.
+
+    Args:
+        request (Request): Incoming HTTP request object.
+                           Contains the user's session information.
+
+    What it does:
+        1. Receives a request when the user visits the root URL.
+        2. Checks whether the user's session contains a "user_id".
+        3. If user_id exists, redirects the user to "/home".
+        4. If user_id does not exist, redirects the user to "/login".
+        5. Uses HTTP status code 303 to perform the redirect.
+
+    Returns:
+        RedirectResponse: Redirects the user to either:
+                          - "/home" if the user is logged in.
+                          - "/login" if the user is not logged in.
+
+    Example:
+        Logged-in user:
+            GET /
+            Redirects to /home
+
+        Not logged-in user:
+            GET /
+            Redirects to /login
+    """
+
+    return RedirectResponse(
+        "/home" if request.session.get("user_id") else "/login",
+        status_code=303
+    )
 
 
 @router.get("/login", response_class=HTMLResponse)
