@@ -44,6 +44,30 @@ def get_connection():
 
 
 def get_user_by_username(username):
+    """
+    Retrieve a user record from the database using their username.
+
+    Establishes a database connection, executes a parameterized SQL query
+    to find the matching user, and fetches the first matching record.
+
+    Args:
+        username (str): The username of the user to search for.
+
+    Returns:
+        dict | None: A dictionary containing the user's database record
+        if a matching user is found; otherwise, None.
+
+    Raises:
+        pymysql.MySQLError: If a database operation fails.
+
+    Example:
+        user = get_user_by_username("admin")
+
+        if user:
+            print(user["username"])
+        else:
+            print("User not found.")
+    """
     conn = get_connection()
     try:
         with conn.cursor() as cur:
