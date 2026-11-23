@@ -78,6 +78,30 @@ def get_user_by_username(username):
 
 
 def get_user_by_id(user_id):
+    """
+    Retrieve a user record from the database using their user ID.
+
+    Establishes a database connection, executes a parameterized SQL query
+    to find the user with the specified ID, and fetches the matching record.
+
+    Args:
+        user_id (int): The unique ID of the user to retrieve.
+
+    Returns:
+        dict | None: A dictionary containing the user's database record
+        if a matching user is found; otherwise, None.
+
+    Raises:
+        pymysql.MySQLError: If a database operation fails.
+
+    Example:
+        user = get_user_by_id(1)
+
+        if user:
+            print(user["username"])
+        else:
+            print("User not found.")
+    """
     conn = get_connection()
     try:
         with conn.cursor() as cur:
