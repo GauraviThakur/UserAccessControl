@@ -1,4 +1,38 @@
-"""MEMBER A: login, logout and home page."""
+"""
+Authentication module for the User Access Control application.
+
+This module defines the authentication API router and imports the
+functions required to handle user login, logout, session management,
+and home page functionality.
+
+It uses FastAPI form handling, database queries, password verification,
+and session-based authentication to manage user access.
+
+Imports:
+    escape: Escapes special HTML characters to help prevent HTML injection.
+    APIRouter: Creates a router for registering authentication endpoints.
+    Request: Provides access to request data and session information.
+    Form: Extracts form data submitted by users.
+    HTMLResponse: Returns HTML content as an HTTP response.
+    RedirectResponse: Redirects users to another URL.
+    Response: Base response class for HTML and redirect responses.
+    get_user_by_username: Retrieves a user record using their username.
+    verify_password: Checks the entered password against the stored hash.
+    load_html: Loads HTML templates from the application's HTML directory.
+    current_user: Retrieves the currently logged-in user's database record.
+    get_user_pages: Retrieves the pages assigned to a user.
+
+Global Variables:
+    router (APIRouter): Router used to register authentication endpoints.
+
+Authentication Features:
+    - User login and password verification.
+    - Session management after successful login.
+    - Logout and session clearing.
+    - Home page access for authenticated users.
+    - Retrieving user-specific page permissions.
+"""
+
 from html import escape
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
