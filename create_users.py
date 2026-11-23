@@ -1,4 +1,42 @@
-"""MEMBER A. Run once: python create_users.py  -> adds demo users with hashed passwords."""
+"""
+User configuration module for the User Access Control application.
+
+This module defines the initial user accounts that can be created
+in the application's MySQL database.
+
+It imports the database connection function and password hashing
+function required for securely storing user credentials.
+
+Imports:
+    get_connection: Establishes a connection to the MySQL database.
+    hash_password: Converts plain-text passwords into secure bcrypt hashes.
+
+Global Variables:
+    USERS (list[tuple[str, str, str]]): Stores the initial user details.
+        Each tuple contains:
+            - username: Unique username of the user.
+            - full_name: Full name of the user.
+            - password: Initial plain-text password to be hashed
+              before storing it in the database.
+
+Initial Users:
+    - priti
+    - yogesh
+    - amit
+    - admin
+    - neha
+    - rahul
+
+Purpose:
+    Provides predefined user information for initializing user
+    accounts in the database.
+
+Security:
+    Passwords should never be stored directly in the database.
+    Use hash_password() to generate bcrypt password hashes before
+    inserting user records.
+"""
+
 from app.db import get_connection
 from app.security import hash_password
 
