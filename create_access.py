@@ -37,6 +37,46 @@ ACCESS = {
     "rahul": ["page2", "page4"],
 }
 
+
+"""
+User page permission initialization script.
+
+This script configures page-level access permissions for users based on
+the ACCESS dictionary.
+
+It connects to the MySQL database, retrieves each user's ID using their
+username, removes their existing page permissions, and inserts the
+updated permissions into the user_pages table.
+
+Execution Flow:
+    1. Establishes a connection to the MySQL database.
+    2. Iterates through each username and its assigned pages in ACCESS.
+    3. Searches the users table to retrieve the corresponding user ID.
+    4. Skips the user if their username does not exist in the database.
+    5. Deletes the user's previously assigned page permissions.
+    6. Inserts the newly assigned pages into the user_pages table.
+    7. Commits all database changes.
+    8. Closes the database connection, even if an error occurs.
+
+Database Tables:
+    users:
+        Stores user information, including user IDs and usernames.
+
+    user_pages:
+        Stores the relationship between users and their permitted pages.
+
+Dependencies:
+    get_connection: Establishes a MySQL database connection.
+    ACCESS: Dictionary containing usernames and their assigned pages.
+
+Important:
+    Run create_users.py before executing this script to ensure that
+    the required users exist in the database.
+
+    Existing permissions for each processed user are replaced with
+    the permissions specified in ACCESS.
+"""
+
 conn = get_connection()
 try:
     with conn.cursor() as cur:
