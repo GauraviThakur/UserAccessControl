@@ -50,6 +50,45 @@ USERS = [
     ("rahul", "Rahul", "rahul@123"),
 ]
 
+"""
+User account initialization script for the User Access Control application.
+
+This script creates initial user accounts in the MySQL database using
+the user details provided in the USERS list.
+
+It checks whether each username already exists before inserting a new
+record. Passwords are hashed using bcrypt before being stored in the
+database.
+
+Execution Flow:
+    1. Establishes a connection to the MySQL database.
+    2. Iterates through the predefined USERS list.
+    3. Extracts the username, full name, and password for each user.
+    4. Checks whether the username already exists in the users table.
+    5. Skips the user if an account with that username already exists.
+    6. Hashes the plain-text password using hash_password().
+    7. Inserts the new user details into the users table.
+    8. Commits all database changes.
+    9. Closes the database connection, even if an error occurs.
+
+Database Table:
+    users:
+        Stores user information, including:
+            - id
+            - username
+            - full_name
+            - password_hash
+
+Dependencies:
+    get_connection: Establishes a MySQL database connection.
+    hash_password: Generates a secure bcrypt password hash.
+    USERS: Contains the predefined user account details.
+
+Important:
+    Existing usernames are skipped to prevent duplicate user accounts.
+    Passwords are stored as bcrypt hashes rather than plain text.
+"""
+
 conn = get_connection()
 try:
     with conn.cursor() as cur:
