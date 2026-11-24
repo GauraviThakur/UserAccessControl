@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Overview &mdash; User Access Control 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation Guide" href="installation.html" />
+    <link rel="prev" title="User Access Control Documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            User Access Control
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#objectives">Objectives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main-features">Main Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#user-authentication">User Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#session-management">Session Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#page-level-authorization">Page-Level Authorization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#technology-used">Technology Used</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#application-pages">Application Pages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python Modules Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">User Access Control</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Project Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="project-overview">
+<h1>Project Overview<a class="headerlink" href="#project-overview" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>User Access Control is a web application developed using Python and FastAPI.
+It provides authentication and authorization functionality to control which
+pages a logged-in user can access.</p>
+<p>The application verifies user credentials during login and uses session-based
+authentication to maintain the user’s login state.</p>
+</section>
+<section id="objectives">
+<h2>Objectives<a class="headerlink" href="#objectives" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Provide secure user authentication.</p></li>
+<li><p>Store user information in a MySQL database.</p></li>
+<li><p>Protect application pages from unauthorized access.</p></li>
+<li><p>Assign different page permissions to different users.</p></li>
+<li><p>Display an access denied page when a user tries to access a restricted page.</p></li>
+</ul>
+</section>
+<section id="main-features">
+<h2>Main Features<a class="headerlink" href="#main-features" title="Link to this heading"></a></h2>
+<section id="user-authentication">
+<h3>User Authentication<a class="headerlink" href="#user-authentication" title="Link to this heading"></a></h3>
+<p>Users can log in using their username and password. Passwords are stored
+as bcrypt hashes rather than plain text.</p>
+</section>
+<section id="session-management">
+<h3>Session Management<a class="headerlink" href="#session-management" title="Link to this heading"></a></h3>
+<p>The application uses Starlette SessionMiddleware to maintain user login
+sessions.</p>
+</section>
+<section id="page-level-authorization">
+<h3>Page-Level Authorization<a class="headerlink" href="#page-level-authorization" title="Link to this heading"></a></h3>
+<p>Each user is assigned permission to access specific pages. The application
+checks these permissions before displaying protected pages.</p>
+</section>
+</section>
+<section id="technology-used">
+<h2>Technology Used<a class="headerlink" href="#technology-used" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Python 3.13</p></li>
+<li><p>FastAPI</p></li>
+<li><p>MySQL</p></li>
+<li><p>PyMySQL</p></li>
+<li><p>Starlette</p></li>
+<li><p>bcrypt</p></li>
+<li><p>HTML</p></li>
+<li><p>CSS</p></li>
+</ul>
+</section>
+<section id="application-pages">
+<h2>Application Pages<a class="headerlink" href="#application-pages" title="Link to this heading"></a></h2>
+<p>The application includes the following protected pages:</p>
+<ul class="simple">
+<li><p>Page 1</p></li>
+<li><p>Page 2</p></li>
+<li><p>Page 3</p></li>
+<li><p>Page 4</p></li>
+</ul>
+<p>The pages available to a user depend on the permissions assigned to that user.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="User Access Control Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Project Author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

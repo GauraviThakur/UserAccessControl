@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing Documentation &mdash; User Access Control 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deployment Guide" href="deployment.html" />
+    <link rel="prev" title="Python Modules Documentation" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            User Access Control
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python Modules Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication-testing">Authentication Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#login-with-valid-credentials">Login with Valid Credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#login-with-invalid-credentials">Login with Invalid Credentials</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#logout-testing">Logout Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authorization-testing">Authorization Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#authorized-page-access">Authorized Page Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unauthorized-page-access">Unauthorized Page Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#administrator-access">Administrator Access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#session-testing">Session Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-testing">Database Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">User Access Control</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Testing Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/testing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing-documentation">
+<h1>Testing Documentation<a class="headerlink" href="#testing-documentation" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Testing verifies that the User Access Control application works correctly
+and prevents unauthorized access.</p>
+</section>
+<section id="authentication-testing">
+<h2>Authentication Testing<a class="headerlink" href="#authentication-testing" title="Link to this heading"></a></h2>
+<section id="login-with-valid-credentials">
+<h3>Login with Valid Credentials<a class="headerlink" href="#login-with-valid-credentials" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Open the login page.</p></li>
+<li><p>Enter a valid username and password.</p></li>
+<li><p>Submit the login form.</p></li>
+<li><p>Verify that the user is redirected to the home page.</p></li>
+</ol>
+<p>Expected Result: The user should log in successfully.</p>
+</section>
+<section id="login-with-invalid-credentials">
+<h3>Login with Invalid Credentials<a class="headerlink" href="#login-with-invalid-credentials" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Open the login page.</p></li>
+<li><p>Enter an incorrect username or password.</p></li>
+<li><p>Submit the login form.</p></li>
+</ol>
+<p>Expected Result: The application should reject the login attempt.</p>
+</section>
+</section>
+<section id="logout-testing">
+<h2>Logout Testing<a class="headerlink" href="#logout-testing" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Log in to the application.</p></li>
+<li><p>Select the logout option.</p></li>
+<li><p>Try opening a protected page.</p></li>
+</ol>
+<p>Expected Result: The user should be redirected to the login page or denied
+access.</p>
+</section>
+<section id="authorization-testing">
+<h2>Authorization Testing<a class="headerlink" href="#authorization-testing" title="Link to this heading"></a></h2>
+<section id="authorized-page-access">
+<h3>Authorized Page Access<a class="headerlink" href="#authorized-page-access" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Log in as Priti.</p></li>
+<li><p>Open Page 1 or Page 2.</p></li>
+</ol>
+<p>Expected Result: Access should be granted.</p>
+</section>
+<section id="unauthorized-page-access">
+<h3>Unauthorized Page Access<a class="headerlink" href="#unauthorized-page-access" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Log in as Priti.</p></li>
+<li><p>Try opening Page 3.</p></li>
+</ol>
+<p>Expected Result: Access should be denied.</p>
+</section>
+<section id="administrator-access">
+<h3>Administrator Access<a class="headerlink" href="#administrator-access" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Log in as Admin.</p></li>
+<li><p>Open Page 1, Page 2, Page 3, and Page 4.</p></li>
+</ol>
+<p>Expected Result: Access should be granted to all four pages.</p>
+</section>
+</section>
+<section id="session-testing">
+<h2>Session Testing<a class="headerlink" href="#session-testing" title="Link to this heading"></a></h2>
+<p>Verify that:</p>
+<ul class="simple">
+<li><p>A logged-in user’s session is maintained while navigating pages.</p></li>
+<li><p>The session expires according to the configured expiration time.</p></li>
+<li><p>Logout clears the session.</p></li>
+</ul>
+</section>
+<section id="database-testing">
+<h2>Database Testing<a class="headerlink" href="#database-testing" title="Link to this heading"></a></h2>
+<p>Verify that:</p>
+<ul class="simple">
+<li><p>User records can be retrieved from MySQL.</p></li>
+<li><p>Password hashes are stored correctly.</p></li>
+<li><p>User page permissions are retrieved correctly.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>Testing helps identify errors and ensures that authentication, authorization,
+session management, and database operations work as expected.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Python Modules Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="deployment.html" class="btn btn-neutral float-right" title="Deployment Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Project Author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

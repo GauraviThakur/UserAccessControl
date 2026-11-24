@@ -1,0 +1,202 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authorization &mdash; User Access Control 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python Modules Documentation" href="modules.html" />
+    <link rel="prev" title="Authentication" href="authentication.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            User Access Control
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Authorization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#page-level-access-control">Page-Level Access Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permission-checking">Permission Checking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#access-control-examples">Access Control Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-1-authorized-access">Example 1: Authorized Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-2-unauthorized-access">Example 2: Unauthorized Access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-3-administrator-access">Example 3: Administrator Access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#access-denied">Access Denied</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benefits">Benefits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python Modules Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">User Access Control</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Authorization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/authorization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="authorization">
+<h1>Authorization<a class="headerlink" href="#authorization" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>Authorization determines which resources an authenticated user is allowed
+to access.</p>
+<p>In the User Access Control application, each user has specific permissions
+to access different pages.</p>
+</section>
+<section id="page-level-access-control">
+<h2>Page-Level Access Control<a class="headerlink" href="#page-level-access-control" title="Link to this heading"></a></h2>
+<p>The application uses user-specific page permissions.</p>
+<p>For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Username    Page Permissions
+--------    ----------------
+priti       page1, page2
+yogesh      page3
+amit        page4
+admin       page1, page2, page3, page4
+neha        page1, page2, page3
+rahul       page2, page4
+</pre></div>
+</div>
+</section>
+<section id="permission-checking">
+<h2>Permission Checking<a class="headerlink" href="#permission-checking" title="Link to this heading"></a></h2>
+<p>When a user requests a protected page, the application performs the following
+checks:</p>
+<ol class="arabic simple">
+<li><p>Verify whether the user is logged in.</p></li>
+<li><p>Retrieve the current user’s information.</p></li>
+<li><p>Retrieve the pages assigned to that user.</p></li>
+<li><p>Check whether the requested page exists in the user’s permissions.</p></li>
+<li><p>Allow access if permission is available.</p></li>
+<li><p>Otherwise, deny access.</p></li>
+</ol>
+</section>
+<section id="access-control-examples">
+<h2>Access Control Examples<a class="headerlink" href="#access-control-examples" title="Link to this heading"></a></h2>
+<section id="example-1-authorized-access">
+<h3>Example 1: Authorized Access<a class="headerlink" href="#example-1-authorized-access" title="Link to this heading"></a></h3>
+<p>If Priti logs in and requests Page 1, access is granted because Page 1 is
+included in her permissions.</p>
+</section>
+<section id="example-2-unauthorized-access">
+<h3>Example 2: Unauthorized Access<a class="headerlink" href="#example-2-unauthorized-access" title="Link to this heading"></a></h3>
+<p>If Priti requests Page 3, access is denied because she does not have
+permission to access that page.</p>
+</section>
+<section id="example-3-administrator-access">
+<h3>Example 3: Administrator Access<a class="headerlink" href="#example-3-administrator-access" title="Link to this heading"></a></h3>
+<p>The administrator has permission to access all four protected pages.</p>
+</section>
+</section>
+<section id="access-denied">
+<h2>Access Denied<a class="headerlink" href="#access-denied" title="Link to this heading"></a></h2>
+<p>When a user attempts to access a page without the required permission,
+the application displays the access denied page.</p>
+</section>
+<section id="benefits">
+<h2>Benefits<a class="headerlink" href="#benefits" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Prevents unauthorized page access.</p></li>
+<li><p>Provides user-specific permissions.</p></li>
+<li><p>Separates authentication from authorization.</p></li>
+<li><p>Makes access management easier.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>Authorization ensures that authenticated users can access only the pages
+permitted to them.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="authentication.html" class="btn btn-neutral float-left" title="Authentication" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="Python Modules Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Project Author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

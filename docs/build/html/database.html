@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database Documentation &mdash; User Access Control 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Authentication" href="authentication.html" />
+    <link rel="prev" title="System Architecture" href="architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            User Access Control
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">System Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Database Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-connectivity">Database Connectivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-tables">Database Tables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#users-table">Users Table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-permissions-table">User Permissions Table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#user-permission-relationship">User Permission Relationship</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-operations">Database Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-security">Database Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Python Modules Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployment.html">Deployment Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">User Access Control</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Database Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/database.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="database-documentation">
+<h1>Database Documentation<a class="headerlink" href="#database-documentation" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>The User Access Control application uses MySQL as its relational database
+management system.</p>
+<p>The database stores user information and page permission details required
+for authentication and authorization.</p>
+</section>
+<section id="database-connectivity">
+<h2>Database Connectivity<a class="headerlink" href="#database-connectivity" title="Link to this heading"></a></h2>
+<p>The application uses PyMySQL to connect Python code with the MySQL database.</p>
+<p>The database module is responsible for managing database connections and
+executing database-related operations.</p>
+</section>
+<section id="database-tables">
+<h2>Database Tables<a class="headerlink" href="#database-tables" title="Link to this heading"></a></h2>
+<section id="users-table">
+<h3>Users Table<a class="headerlink" href="#users-table" title="Link to this heading"></a></h3>
+<p>The users table stores registered user information.</p>
+<p>Typical information includes:</p>
+<ul class="simple">
+<li><p>User ID</p></li>
+<li><p>Username</p></li>
+<li><p>Full name</p></li>
+<li><p>Password hash</p></li>
+</ul>
+</section>
+<section id="user-permissions-table">
+<h3>User Permissions Table<a class="headerlink" href="#user-permissions-table" title="Link to this heading"></a></h3>
+<p>The user_pages table stores the pages that each user is allowed to access.</p>
+<p>Typical information includes:</p>
+<ul class="simple">
+<li><p>User ID</p></li>
+<li><p>Page name</p></li>
+</ul>
+</section>
+</section>
+<section id="user-permission-relationship">
+<h2>User Permission Relationship<a class="headerlink" href="#user-permission-relationship" title="Link to this heading"></a></h2>
+<p>A user can have permission to access multiple pages.</p>
+<p>For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Username    Allowed Pages
+--------    --------------------
+priti       page1, page2
+yogesh      page3
+amit        page4
+admin       page1, page2, page3, page4
+</pre></div>
+</div>
+</section>
+<section id="database-operations">
+<h2>Database Operations<a class="headerlink" href="#database-operations" title="Link to this heading"></a></h2>
+<p>The application performs the following database operations:</p>
+<ul class="simple">
+<li><p>Establishing database connections.</p></li>
+<li><p>Retrieving user information.</p></li>
+<li><p>Verifying user credentials.</p></li>
+<li><p>Retrieving page permissions.</p></li>
+<li><p>Storing user and permission information.</p></li>
+</ul>
+</section>
+<section id="database-security">
+<h2>Database Security<a class="headerlink" href="#database-security" title="Link to this heading"></a></h2>
+<p>The application should follow these database security practices:</p>
+<ul class="simple">
+<li><p>Use parameterized SQL queries.</p></li>
+<li><p>Do not store plain-text passwords.</p></li>
+<li><p>Keep database credentials in environment variables.</p></li>
+<li><p>Restrict database access to authorized users.</p></li>
+<li><p>Close database connections after use.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>The MySQL database provides persistent storage for user information and
+page-level permissions.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture.html" class="btn btn-neutral float-left" title="System Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="authentication.html" class="btn btn-neutral float-right" title="Authentication" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Project Author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

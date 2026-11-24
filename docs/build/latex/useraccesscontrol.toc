@@ -1,0 +1,100 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Project Features}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Technology Stack}{5}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Documentation Contents}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Project Overview}{7}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Introduction}{7}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Objectives}{7}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Main Features}{7}{subsection.3.1.3}%
+\contentsline {subsubsection}{User Authentication}{7}{subsubsection*.3}%
+\contentsline {subsubsection}{Session Management}{7}{subsubsection*.4}%
+\contentsline {subsubsection}{Page\sphinxhyphen {}Level Authorization}{7}{subsubsection*.5}%
+\contentsline {subsection}{\numberline {3.1.4}Technology Used}{7}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Application Pages}{8}{subsection.3.1.5}%
+\contentsline {section}{\numberline {3.2}Installation Guide}{8}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Prerequisites}{8}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Download the Project}{8}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Install Required Packages}{8}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Database Configuration}{8}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Environment Configuration}{9}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.6}Run the Application}{9}{subsection.3.2.6}%
+\contentsline {subsection}{\numberline {3.2.7}API Documentation}{9}{subsection.3.2.7}%
+\contentsline {section}{\numberline {3.3}System Architecture}{9}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Introduction}{9}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Application Structure}{9}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Main Components}{10}{subsection.3.3.3}%
+\contentsline {subsubsection}{main.py}{10}{subsubsection*.6}%
+\contentsline {subsubsection}{auth.py}{10}{subsubsection*.7}%
+\contentsline {subsubsection}{access.py}{10}{subsubsection*.8}%
+\contentsline {subsubsection}{db.py}{10}{subsubsection*.9}%
+\contentsline {subsubsection}{security.py}{10}{subsubsection*.10}%
+\contentsline {subsubsection}{utils.py}{10}{subsubsection*.11}%
+\contentsline {subsection}{\numberline {3.3.4}Authentication and Authorization Flow}{10}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Conclusion}{10}{subsection.3.3.5}%
+\contentsline {section}{\numberline {3.4}Database Documentation}{11}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Introduction}{11}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Database Connectivity}{11}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Database Tables}{11}{subsection.3.4.3}%
+\contentsline {subsubsection}{Users Table}{11}{subsubsection*.12}%
+\contentsline {subsubsection}{User Permissions Table}{11}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {3.4.4}User Permission Relationship}{11}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Database Operations}{11}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Database Security}{12}{subsection.3.4.6}%
+\contentsline {subsection}{\numberline {3.4.7}Conclusion}{12}{subsection.3.4.7}%
+\contentsline {section}{\numberline {3.5}Authentication}{12}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Introduction}{12}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Login Process}{12}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Password Hashing}{12}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Session Management}{13}{subsection.3.5.4}%
+\contentsline {subsubsection}{Session Configuration}{13}{subsubsection*.14}%
+\contentsline {subsection}{\numberline {3.5.5}Logout Process}{13}{subsection.3.5.5}%
+\contentsline {subsection}{\numberline {3.5.6}Authentication Security}{13}{subsection.3.5.6}%
+\contentsline {subsection}{\numberline {3.5.7}Conclusion}{13}{subsection.3.5.7}%
+\contentsline {section}{\numberline {3.6}Authorization}{13}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Introduction}{13}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Page\sphinxhyphen {}Level Access Control}{13}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Permission Checking}{14}{subsection.3.6.3}%
+\contentsline {subsection}{\numberline {3.6.4}Access Control Examples}{14}{subsection.3.6.4}%
+\contentsline {subsubsection}{Example 1: Authorized Access}{14}{subsubsection*.15}%
+\contentsline {subsubsection}{Example 2: Unauthorized Access}{14}{subsubsection*.16}%
+\contentsline {subsubsection}{Example 3: Administrator Access}{14}{subsubsection*.17}%
+\contentsline {subsection}{\numberline {3.6.5}Access Denied}{14}{subsection.3.6.5}%
+\contentsline {subsection}{\numberline {3.6.6}Benefits}{14}{subsection.3.6.6}%
+\contentsline {subsection}{\numberline {3.6.7}Conclusion}{14}{subsection.3.6.7}%
+\contentsline {section}{\numberline {3.7}Python Modules Documentation}{15}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Introduction}{15}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}main.py}{15}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}auth.py}{15}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}access.py}{15}{subsection.3.7.4}%
+\contentsline {subsection}{\numberline {3.7.5}db.py}{15}{subsection.3.7.5}%
+\contentsline {subsection}{\numberline {3.7.6}security.py}{16}{subsection.3.7.6}%
+\contentsline {subsection}{\numberline {3.7.7}utils.py}{16}{subsection.3.7.7}%
+\contentsline {subsection}{\numberline {3.7.8}HTML Templates}{16}{subsection.3.7.8}%
+\contentsline {subsubsection}{login.html}{16}{subsubsection*.18}%
+\contentsline {subsubsection}{home.html}{16}{subsubsection*.19}%
+\contentsline {subsubsection}{denied.html}{16}{subsubsection*.20}%
+\contentsline {subsubsection}{page1.html to page4.html}{16}{subsubsection*.21}%
+\contentsline {subsection}{\numberline {3.7.9}Static Files}{16}{subsection.3.7.9}%
+\contentsline {subsection}{\numberline {3.7.10}Conclusion}{16}{subsection.3.7.10}%
+\contentsline {section}{\numberline {3.8}Testing Documentation}{16}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Introduction}{16}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Authentication Testing}{17}{subsection.3.8.2}%
+\contentsline {subsubsection}{Login with Valid Credentials}{17}{subsubsection*.22}%
+\contentsline {subsubsection}{Login with Invalid Credentials}{17}{subsubsection*.23}%
+\contentsline {subsection}{\numberline {3.8.3}Logout Testing}{17}{subsection.3.8.3}%
+\contentsline {subsection}{\numberline {3.8.4}Authorization Testing}{17}{subsection.3.8.4}%
+\contentsline {subsubsection}{Authorized Page Access}{17}{subsubsection*.24}%
+\contentsline {subsubsection}{Unauthorized Page Access}{17}{subsubsection*.25}%
+\contentsline {subsubsection}{Administrator Access}{17}{subsubsection*.26}%
+\contentsline {subsection}{\numberline {3.8.5}Session Testing}{18}{subsection.3.8.5}%
+\contentsline {subsection}{\numberline {3.8.6}Database Testing}{18}{subsection.3.8.6}%
+\contentsline {subsection}{\numberline {3.8.7}Conclusion}{18}{subsection.3.8.7}%
+\contentsline {section}{\numberline {3.9}Deployment Guide}{18}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Introduction}{18}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Prerequisites}{18}{subsection.3.9.2}%
+\contentsline {subsection}{\numberline {3.9.3}Project Configuration}{18}{subsection.3.9.3}%
+\contentsline {subsection}{\numberline {3.9.4}Database Setup}{18}{subsection.3.9.4}%
+\contentsline {subsection}{\numberline {3.9.5}Run the Application Locally}{19}{subsection.3.9.5}%
+\contentsline {subsection}{\numberline {3.9.6}Production Deployment}{19}{subsection.3.9.6}%
+\contentsline {subsection}{\numberline {3.9.7}Security Recommendations}{19}{subsection.3.9.7}%
+\contentsline {subsection}{\numberline {3.9.8}Conclusion}{19}{subsection.3.9.8}%
