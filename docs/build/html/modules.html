@@ -9,6 +9,7 @@
   <title>Python Modules Documentation &mdash; User Access Control 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -16,6 +17,364 @@
       <script src="_static/documentation_options.js?v=f2a433a1"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -52,12 +411,37 @@
 <li class="toctree-l1"><a class="reference internal" href="authorization.html">Authorization</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Python Modules Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-dependency-diagram">Module Dependency Diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#main-py">main.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#auth-py">auth.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#access-py">access.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#db-py">db.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#security-py">security.py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#utils-py">utils.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#auth-py">auth.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#app.auth.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.auth.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.auth.login_form"><code class="docutils literal notranslate"><span class="pre">login_form()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.auth.logout"><code class="docutils literal notranslate"><span class="pre">logout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.auth.root"><code class="docutils literal notranslate"><span class="pre">root()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#access-py">access.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#app.access.get_user_pages"><code class="docutils literal notranslate"><span class="pre">get_user_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.access.make_page_route"><code class="docutils literal notranslate"><span class="pre">make_page_route()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#db-py">db.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#app.db.get_connection"><code class="docutils literal notranslate"><span class="pre">get_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.db.get_user_by_id"><code class="docutils literal notranslate"><span class="pre">get_user_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.db.get_user_by_username"><code class="docutils literal notranslate"><span class="pre">get_user_by_username()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#security-py">security.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#app.security.hash_password"><code class="docutils literal notranslate"><span class="pre">hash_password()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.security.verify_password"><code class="docutils literal notranslate"><span class="pre">verify_password()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utils-py">utils.py</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#app.utils.current_user"><code class="docutils literal notranslate"><span class="pre">current_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.utils.load_html"><code class="docutils literal notranslate"><span class="pre">load_html()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#html-templates">HTML Templates</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#login-html">login.html</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#home-html">home.html</a></li>
@@ -104,6 +488,19 @@
 <p>The application is divided into multiple Python modules. Each module
 handles a specific responsibility to keep the code organized and maintainable.</p>
 </section>
+<section id="module-dependency-diagram">
+<h2>Module Dependency Diagram<a class="headerlink" href="#module-dependency-diagram" title="Link to this heading"></a></h2>
+<pre  class="mermaid">
+        flowchart LR
+    main[main.py] --&gt; auth[auth.py]
+    main --&gt; access[access.py]
+    main --&gt; db[db.py]
+    auth --&gt; db
+    auth --&gt; security[security.py]
+    access --&gt; db
+    auth --&gt; utils[utils.py]
+    access --&gt; utils
+    </pre></section>
 <section id="main-py">
 <h2>main.py<a class="headerlink" href="#main-py" title="Link to this heading"></a></h2>
 <p>The main.py module is the entry point of the FastAPI application.</p>
@@ -116,6 +513,48 @@ handles a specific responsibility to keep the code organized and maintainable.</
 <li><p>Register authentication and page routers.</p></li>
 <li><p>Configure application exception handling.</p></li>
 </ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the application from the project root</span>
+<span class="c1">#   uvicorn app.main:app --reload</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">starlette.middleware.sessions</span><span class="w"> </span><span class="kn">import</span> <span class="n">SessionMiddleware</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+<span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span><span class="n">SessionMiddleware</span><span class="p">,</span> <span class="n">secret_key</span><span class="o">=</span><span class="s2">&quot;change-this-secret&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>API reference</strong></p>
+<p id="module-app.main">Main module for the User Access Control application.</p>
+<p>This module initializes and configures the FastAPI application,
+loads environment variables, sets up session management, serves
+static files, and registers application routers.</p>
+<dl class="simple">
+<dt>Application Setup:</dt><dd><ol class="arabic simple">
+<li><p>Loads environment variables from the .env file using load_dotenv().</p></li>
+<li><p>Imports authentication and access-control routers.</p></li>
+<li><p>Creates a FastAPI application instance.</p></li>
+<li><p>Adds SessionMiddleware to manage user sessions securely.</p></li>
+<li><p>Mounts the static directory to serve CSS, JavaScript, and other
+static files.</p></li>
+<li><p>Registers the authentication and access-control routers.</p></li>
+</ol>
+</dd>
+<dt>Environment Variables:</dt><dd><dl class="simple">
+<dt>SECRET_KEY (str): Secret key used by SessionMiddleware to sign</dt><dd><p>session cookies. Uses a development default if not configured.</p>
+</dd>
+</dl>
+</dd>
+<dt>Modules:</dt><dd><p>auth: Handles login, logout, and home page functionality.
+access: Handles page1-page4 routes and user access permissions.
+utils: Provides BASE_DIR for locating application resources.</p>
+</dd>
+<dt>Static Files:</dt><dd><p>URL: /static
+Directory: BASE_DIR/static</p>
+</dd>
+<dt>Application:</dt><dd><p>app: The main FastAPI application instance.</p>
+</dd>
+</dl>
 </section>
 <section id="auth-py">
 <h2>auth.py<a class="headerlink" href="#auth-py" title="Link to this heading"></a></h2>
@@ -128,6 +567,299 @@ handles a specific responsibility to keep the code organized and maintainable.</
 <li><p>Handle logout requests.</p></li>
 <li><p>Clear user sessions.</p></li>
 </ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># POST /login  (form fields: username, password)</span>
+<span class="c1">#</span>
+<span class="c1"># Valid credentials   -&gt; user ID stored in session, redirect to home page</span>
+<span class="c1"># Invalid credentials -&gt; login.html shown again with an error message</span>
+<span class="c1">#</span>
+<span class="c1"># GET /logout</span>
+<span class="c1">#</span>
+<span class="c1"># Session cleared -&gt; redirect to login page</span>
+</pre></div>
+</div>
+<p><strong>API reference</strong></p>
+<p id="module-app.auth">Authentication module for the User Access Control application.</p>
+<p>This module defines the authentication API router and imports the
+functions required to handle user login, logout, session management,
+and home page functionality.</p>
+<p>It uses FastAPI form handling, database queries, password verification,
+and session-based authentication to manage user access.</p>
+<dl class="simple">
+<dt>Imports:</dt><dd><p>escape: Escapes special HTML characters to help prevent HTML injection.
+APIRouter: Creates a router for registering authentication endpoints.
+Request: Provides access to request data and session information.
+Form: Extracts form data submitted by users.
+HTMLResponse: Returns HTML content as an HTTP response.
+RedirectResponse: Redirects users to another URL.
+Response: Base response class for HTML and redirect responses.
+get_user_by_username: Retrieves a user record using their username.
+verify_password: Checks the entered password against the stored hash.
+load_html: Loads HTML templates from the application’s HTML directory.
+current_user: Retrieves the currently logged-in user’s database record.
+get_user_pages: Retrieves the pages assigned to a user.</p>
+</dd>
+<dt>Global Variables:</dt><dd><p>router (APIRouter): Router used to register authentication endpoints.</p>
+</dd>
+<dt>Authentication Features:</dt><dd><ul class="simple">
+<li><p>User login and password verification.</p></li>
+<li><p>Session management after successful login.</p></li>
+<li><p>Logout and session clearing.</p></li>
+<li><p>Home page access for authenticated users.</p></li>
+<li><p>Retrieving user-specific page permissions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.home">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="reference internal" href="_modules/app/auth.html#home"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.auth.home" title="Link to this definition"></a></dt>
+<dd><p>Display the home page with the logged-in user’s details
+and assigned page links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>Request</em>) – Incoming HTTP request object.
+Used to identify the currently logged-in user
+and access session information.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>What it does:</dt><dd><ol class="arabic simple">
+<li><p>Handles GET requests to the “/home” URL.</p></li>
+<li><p>Checks whether the user is logged in using current_user().</p></li>
+<li><p>If the user is not logged in, redirects them to “/login”.</p></li>
+<li><p>Retrieves the list of pages assigned to the user
+using get_user_pages().</p></li>
+<li><p>If the user has assigned pages:
+- Generates HTML list items containing links to each page.
+- Replaces “page” in page names with “Page “ for display.</p></li>
+<li><p>If no pages are assigned, displays a message:
+“No pages assigned to you yet.”</p></li>
+<li><p>Loads the home.html template.</p></li>
+<li><p>Replaces the “__NAME__” placeholder with the user’s
+escaped full name.</p></li>
+<li><p>Replaces the “__LINKS__” placeholder with the generated
+page links or the no-pages message.</p></li>
+<li><p>Returns the updated home page as an HTML response.</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>RedirectResponse: Redirects unauthenticated users</dt><dd><p>to “/login” with status code 303.</p>
+</dd>
+<dt>HTMLResponse: Displays the home page with the user’s</dt><dd><p>name and assigned page links.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>Logged-in user with assigned pages:</dt><dd><p>Displays the home page with the user’s name
+and available page links.</p>
+</dd>
+<dt>Logged-in user without assigned pages:</dt><dd><p>Displays “No pages assigned to you yet.”</p>
+</dd>
+<dt>Unauthenticated user:</dt><dd><p>Redirects to “/login”.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.login">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Form(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Form(PydanticUndefined)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="reference internal" href="_modules/app/auth.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.auth.login" title="Link to this definition"></a></dt>
+<dd><p>Authenticate a user using their username and password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>Request</em>) – Incoming HTTP request object.
+Used to access and manage the user session.</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – Username entered in the login form.
+Required form field.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Password entered in the login form.
+Required form field.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>What it does:</dt><dd><ol class="arabic simple">
+<li><p>Receives the username and password submitted through
+the login form.</p></li>
+<li><p>Removes leading and trailing whitespace from the username.</p></li>
+<li><p>Fetches the user details from the database using
+get_user_by_username().</p></li>
+<li><p>Checks whether the user exists.</p></li>
+<li><p>Verifies the entered password against the stored
+password hash using verify_password().</p></li>
+<li><p>If the username or password is incorrect:
+- Displays an error message.
+- Returns the login page with HTTP status code 401.</p></li>
+<li><p>If authentication is successful:
+- Clears the existing session.
+- Stores the user’s ID in the session.
+- Redirects the user to the home page.</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>HTMLResponse: Returns the login page with an error</dt><dd><p>message if authentication fails.</p>
+</dd>
+<dt>RedirectResponse: Redirects the authenticated user</dt><dd><p>to “/home” with HTTP status code 303.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>HTMLResponse | RedirectResponse</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>Input:</dt><dd><p>username = “admin”
+password = “admin123”</p>
+</dd>
+<dt>Successful login:</dt><dd><p>Redirects to “/home”.</p>
+</dd>
+<dt>Failed login:</dt><dd><p>Displays “Wrong username or password.”
+and returns HTTP 401.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.login_form">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">login_form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HTMLResponse</span></span></span><a class="reference internal" href="_modules/app/auth.html#login_form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.auth.login_form" title="Link to this definition"></a></dt>
+<dd><p>Display the login page to the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – This function does not require any input parameters.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>What it does:</dt><dd><ol class="arabic simple">
+<li><p>Handles GET requests to the “/login” URL.</p></li>
+<li><p>Loads the login.html file.</p></li>
+<li><p>Replaces the “__ERROR__” placeholder with an empty string.
+This ensures that no error message is displayed initially.</p></li>
+<li><p>Returns the updated HTML content as a response.</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Returns the login page HTML content</dt><dd><p>with the error message placeholder cleared.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>HTMLResponse</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>Request:</dt><dd><p>GET /login</p>
+</dd>
+<dt>Output:</dt><dd><p>Displays the login page without an error message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.logout">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RedirectResponse</span></span></span><a class="reference internal" href="_modules/app/auth.html#logout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.auth.logout" title="Link to this definition"></a></dt>
+<dd><p>Log out the currently authenticated user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>Request</em>) – Incoming HTTP request object.
+Used to access and manage the user’s session.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>What it does:</dt><dd><ol class="arabic simple">
+<li><p>Handles GET requests to the “/logout” URL.</p></li>
+<li><p>Clears all data stored in the user’s session.</p></li>
+<li><p>Removes the user’s login information from the session.</p></li>
+<li><p>Redirects the user to the login page.</p></li>
+<li><p>Uses HTTP status code 303 for redirection.</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Redirects the user to “/login”</dt><dd><p>after clearing the session.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>RedirectResponse</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>Request:</dt><dd><p>GET /logout</p>
+</dd>
+<dt>Output:</dt><dd><p>Clears the user session and redirects to “/login”.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.root">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RedirectResponse</span></span></span><a class="reference internal" href="_modules/app/auth.html#root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.auth.root" title="Link to this definition"></a></dt>
+<dd><p>Handle requests to the root URL (“/”) and redirect users
+based on their login status.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>Request</em>) – Incoming HTTP request object.
+Contains the user’s session information.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>What it does:</dt><dd><ol class="arabic simple">
+<li><p>Receives a request when the user visits the root URL.</p></li>
+<li><p>Checks whether the user’s session contains a “user_id”.</p></li>
+<li><p>If user_id exists, redirects the user to “/home”.</p></li>
+<li><p>If user_id does not exist, redirects the user to “/login”.</p></li>
+<li><p>Uses HTTP status code 303 to perform the redirect.</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Redirects the user to either:</dt><dd><ul class="simple">
+<li><p>”/home” if the user is logged in.</p></li>
+<li><p>”/login” if the user is not logged in.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>RedirectResponse</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>Logged-in user:</dt><dd><p>GET /
+Redirects to /home</p>
+</dd>
+<dt>Not logged-in user:</dt><dd><p>GET /
+Redirects to /login</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="access-py">
 <h2>access.py<a class="headerlink" href="#access-py" title="Link to this heading"></a></h2>
@@ -139,6 +871,119 @@ handles a specific responsibility to keep the code organized and maintainable.</
 <li><p>Protect restricted pages.</p></li>
 <li><p>Handle unauthorized access.</p></li>
 </ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">app.access</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_page_access</span>
+
+<span class="k">if</span> <span class="n">check_page_access</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;priti&quot;</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="s2">&quot;page1&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Show page1.html&quot;</span><span class="p">)</span>      <span class="c1"># Priti has page1 permission</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Show denied.html&quot;</span><span class="p">)</span>
+
+<span class="n">check_page_access</span><span class="p">(</span><span class="s2">&quot;priti&quot;</span><span class="p">,</span> <span class="s2">&quot;page3&quot;</span><span class="p">)</span>   <span class="c1"># False -&gt; denied.html</span>
+<span class="n">check_page_access</span><span class="p">(</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span> <span class="s2">&quot;page3&quot;</span><span class="p">)</span>   <span class="c1"># True  -&gt; page3.html</span>
+</pre></div>
+</div>
+<p><strong>API reference</strong></p>
+<p id="module-app.access">Access Control module for the User Access Control application.</p>
+<p>This module defines the API router and configuration required to manage
+protected pages and control user access based on assigned permissions.</p>
+<p>It uses FastAPI routing, database connections, session-based authentication,
+and HTML response handling to provide authorized access to application pages.</p>
+<dl class="simple">
+<dt>Imports:</dt><dd><p>escape: Escapes special HTML characters to help prevent HTML injection.
+APIRouter: Creates a router for registering application endpoints.
+Request: Provides access to request and session information.
+HTMLResponse: Returns HTML content as an HTTP response.
+RedirectResponse: Redirects users to another URL.
+get_connection: Establishes a connection to the MySQL database.
+load_html: Loads HTML files from the application’s HTML directory.
+current_user: Retrieves the currently authenticated user.
+Callable: Represents a function that can be called.
+Response: Base response class for HTML and redirect responses.</p>
+</dd>
+<dt>Global Variables:</dt><dd><p>router (APIRouter): Router used to register access-control endpoints.
+PAGES (list[str]): List of protected page names managed by this module.</p>
+</dd>
+<dt>Protected Pages:</dt><dd><p>page1, page2, page3, page4</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.access.get_user_pages">
+<span class="sig-prename descclassname"><span class="pre">app.access.</span></span><span class="sig-name descname"><span class="pre">get_user_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/access.html#get_user_pages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.access.get_user_pages" title="Link to this definition"></a></dt>
+<dd><p>Get all pages that a specific user is allowed to access.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<em>int</em><em> or </em><em>str</em>) – Unique ID of the user.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>What it does:</dt><dd><ol class="arabic simple">
+<li><p>Connects to the database.</p></li>
+<li><p>Fetches all page names assigned to the given user_id
+from the user_pages table.</p></li>
+<li><p>Sorts the page names alphabetically.</p></li>
+<li><p>Closes the database connection.</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A list of page names assigned to the user.</dt><dd><p>Returns an empty list if no pages are assigned.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>Input:</dt><dd><p>get_user_pages(101)</p>
+</dd>
+<dt>Output:</dt><dd><p>[‘Attendance’, ‘Dashboard’, ‘Employee’]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.access.make_page_route">
+<span class="sig-prename descclassname"><span class="pre">app.access.</span></span><span class="sig-name descname"><span class="pre">make_page_route</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Request</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Response</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/app/access.html#make_page_route"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.access.make_page_route" title="Link to this definition"></a></dt>
+<dd><p>Create a page route handler with authentication
+and authorization checks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>page_name</strong> (<em>str</em>) – Name of the HTML page to access.
+Example: “page1”, “page2”, “dashboard”.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>What it does:</dt><dd><ol class="arabic simple">
+<li><p>Creates an inner function named page_view().</p></li>
+<li><p>Checks whether the user is logged in.</p></li>
+<li><p>Redirects unauthenticated users to the login page.</p></li>
+<li><p>Checks whether the requested page is assigned
+to the logged-in user.</p></li>
+<li><p>If access is denied, displays the denied.html page.</p></li>
+<li><p>If access is allowed, displays the requested HTML page.</p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns a page_view function that accepts an HTTP
+Request and returns an HTTP Response.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Callable[[Request], Response]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>make_page_route(“page1”)</p>
+<p>Returns a page handler for page1.</p>
+</dd></dl>
+
 </section>
 <section id="db-py">
 <h2>db.py<a class="headerlink" href="#db-py" title="Link to this heading"></a></h2>
@@ -150,6 +995,133 @@ handles a specific responsibility to keep the code organized and maintainable.</
 <li><p>Retrieve user permissions.</p></li>
 <li><p>Perform database-related operations.</p></li>
 </ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">app.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_connection</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">get_connection</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT username FROM users WHERE username = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;priti&quot;</span><span class="p">,))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">())</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>API reference</strong></p>
+<p id="module-app.db">Database configuration module for the User Access Control application.</p>
+<p>This module imports the required libraries and loads environment
+variables used for connecting to the MySQL database.</p>
+<dl>
+<dt>Imports:</dt><dd><dl class="simple">
+<dt>os: Provides functions to access environment variables and</dt><dd><p>handle operating system paths.</p>
+</dd>
+</dl>
+<p>pymysql: Provides MySQL database connectivity and query execution.
+load_dotenv: Loads database configuration variables from a .env file.</p>
+</dd>
+<dt>Configuration:</dt><dd><p>load_dotenv(): Loads environment variables from the .env file
+into the application’s environment.</p>
+</dd>
+<dt>Purpose:</dt><dd><p>Provides the database configuration required by other modules
+to establish MySQL database connections.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.db.get_connection">
+<span class="sig-prename descclassname"><span class="pre">app.db.</span></span><span class="sig-name descname"><span class="pre">get_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/db.html#get_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.db.get_connection" title="Link to this definition"></a></dt>
+<dd><p>Create and return a connection to the MySQL database.</p>
+<dl class="simple">
+<dt>Reads the database configuration from environment variables:</dt><dd><p>DB_HOST: Database server hostname (default: localhost).
+DB_PORT: Database server port (default: 3306).
+DB_USER: Database username (default: root).
+DB_PASSWORD: Database password.
+DB_NAME: Database name (default: access_demo).</p>
+</dd>
+</dl>
+<p>Uses DictCursor so query results are returned as dictionaries,
+allowing columns to be accessed by their names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An active MySQL database connection.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pymysql.connections.Connection</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pymysql.MySQLError</strong> – If the database connection cannot be established.</p></li>
+<li><p><strong>ValueError</strong> – If DB_PORT contains an invalid integer value.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>conn = get_connection()
+cursor = conn.cursor()
+cursor.execute(“SELECT * FROM users”)
+users = cursor.fetchall()
+conn.close()</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.db.get_user_by_id">
+<span class="sig-prename descclassname"><span class="pre">app.db.</span></span><span class="sig-name descname"><span class="pre">get_user_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/db.html#get_user_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.db.get_user_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a user record from the database using their user ID.</p>
+<p>Establishes a database connection, executes a parameterized SQL query
+to find the user with the specified ID, and fetches the matching record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> (<em>int</em>) – The unique ID of the user to retrieve.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the user’s database record
+if a matching user is found; otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>pymysql.MySQLError</strong> – If a database operation fails.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>user = get_user_by_id(1)</p>
+<dl class="simple">
+<dt>if user:</dt><dd><p>print(user[“username”])</p>
+</dd>
+<dt>else:</dt><dd><p>print(“User not found.”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.db.get_user_by_username">
+<span class="sig-prename descclassname"><span class="pre">app.db.</span></span><span class="sig-name descname"><span class="pre">get_user_by_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/db.html#get_user_by_username"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.db.get_user_by_username" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a user record from the database using their username.</p>
+<p>Establishes a database connection, executes a parameterized SQL query
+to find the matching user, and fetches the first matching record.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – The username of the user to search for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the user’s database record
+if a matching user is found; otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>pymysql.MySQLError</strong> – If a database operation fails.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>user = get_user_by_username(“admin”)</p>
+<dl class="simple">
+<dt>if user:</dt><dd><p>print(user[“username”])</p>
+</dd>
+<dt>else:</dt><dd><p>print(“User not found.”)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="security-py">
 <h2>security.py<a class="headerlink" href="#security-py" title="Link to this heading"></a></h2>
@@ -159,6 +1131,67 @@ handles a specific responsibility to keep the code organized and maintainable.</
 <li><p>Generate password hashes using bcrypt.</p></li>
 <li><p>Verify passwords against stored hashes.</p></li>
 </ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">app.security</span><span class="w"> </span><span class="kn">import</span> <span class="n">hash_password</span><span class="p">,</span> <span class="n">verify_password</span>
+
+<span class="n">hashed</span> <span class="o">=</span> <span class="n">hash_password</span><span class="p">(</span><span class="s2">&quot;MySecret@123&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">verify_password</span><span class="p">(</span><span class="s2">&quot;MySecret@123&quot;</span><span class="p">,</span> <span class="n">hashed</span><span class="p">))</span>   <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">verify_password</span><span class="p">(</span><span class="s2">&quot;wrong&quot;</span><span class="p">,</span> <span class="n">hashed</span><span class="p">))</span>          <span class="c1"># False</span>
+</pre></div>
+</div>
+<p><strong>API reference</strong></p>
+<dl class="py function" id="module-app.security">
+<dt class="sig sig-object py" id="app.security.hash_password">
+<span class="sig-prename descclassname"><span class="pre">app.security.</span></span><span class="sig-name descname"><span class="pre">hash_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plain_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/app/security.html#hash_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.security.hash_password" title="Link to this definition"></a></dt>
+<dd><p>Hash a plain-text password using the bcrypt hashing algorithm.</p>
+<p>Encodes the password into UTF-8 bytes, generates a random salt,
+and creates a secure password hash using bcrypt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plain_password</strong> (<em>str</em>) – The original plain-text password to hash.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The bcrypt password hash decoded as a UTF-8 string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>hashed = hash_password(“admin123”)
+print(hashed)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.security.verify_password">
+<span class="sig-prename descclassname"><span class="pre">app.security.</span></span><span class="sig-name descname"><span class="pre">verify_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plain_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/app/security.html#verify_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.security.verify_password" title="Link to this definition"></a></dt>
+<dd><p>Verify a plain-text password against an existing bcrypt password hash.</p>
+<p>Encodes the provided password and stored hash into UTF-8 bytes,
+then uses bcrypt to check whether the password matches the hash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plain_password</strong> (<em>str</em>) – The plain-text password entered by the user.</p></li>
+<li><p><strong>password_hash</strong> (<em>str</em>) – The previously stored bcrypt password hash.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>True if the password matches the stored hash;</dt><dd><p>otherwise, False.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>hashed = hash_password(“admin123”)
+is_valid = verify_password(“admin123”, hashed)
+print(is_valid)  # True</p>
+</dd></dl>
+
 </section>
 <section id="utils-py">
 <h2>utils.py<a class="headerlink" href="#utils-py" title="Link to this heading"></a></h2>
@@ -168,6 +1201,75 @@ handles a specific responsibility to keep the code organized and maintainable.</
 <li><p>Provide common utility functionality.</p></li>
 <li><p>Avoid repeating shared logic across application modules.</p></li>
 </ul>
+<p><strong>Example usage</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">app.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">some_helper</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">some_helper</span><span class="p">(</span><span class="s2">&quot;input value&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>API reference</strong></p>
+<p id="module-app.utils">Utility functions for the User Access Control application.</p>
+<p>This module provides common helper functions for locating application
+resources, loading HTML templates, and retrieving the currently
+authenticated user from the session.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.utils.current_user">
+<span class="sig-prename descclassname"><span class="pre">app.utils.</span></span><span class="sig-name descname"><span class="pre">current_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/utils.html#current_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.utils.current_user" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the currently logged-in user’s database record.</p>
+<p>Reads the user_id from the request session and uses get_user_by_id()
+to retrieve the corresponding user record from the database.</p>
+<p>The login function (Member A) stores the user’s ID in the session
+after successful authentication.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> (<em>Request</em>) – The incoming FastAPI request containing
+the user’s session information.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The logged-in user’s database record if a valid
+user_id exists in the session; otherwise, None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict | None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>user = current_user(request)</p>
+<dl class="simple">
+<dt>if user:</dt><dd><p>print(user[“username”])</p>
+</dd>
+<dt>else:</dt><dd><p>print(“User is not logged in.”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.utils.load_html">
+<span class="sig-prename descclassname"><span class="pre">app.utils.</span></span><span class="sig-name descname"><span class="pre">load_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/app/utils.html#load_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.utils.load_html" title="Link to this definition"></a></dt>
+<dd><p>Read and return the contents of an HTML file from the app/html directory.</p>
+<p>Constructs the file path using BASE_DIR, opens the specified HTML
+file with UTF-8 encoding, and reads its contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>str</em>) – Name of the HTML file to read.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Contents of the HTML file as a string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – If the specified HTML file does not exist.</p></li>
+<li><p><strong>OSError</strong> – If an error occurs while opening or reading the file.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>html = load_html(“login.html”)</p>
+</dd></dl>
+
 </section>
 <section id="html-templates">
 <h2>HTML Templates<a class="headerlink" href="#html-templates" title="Link to this heading"></a></h2>

@@ -1,0 +1,811 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app.auth &mdash; User Access Control 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = "pre.mermaid {\n    /* Same as .mermaid-container > pre */\n    display: block;\n    width: 100%;\n}\n\npre.mermaid > svg {\n    /* Same as .mermaid-container > pre > svg */\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}";
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = ".mermaid-container {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n}\n\n.mermaid-container > pre {\n    display: block;\n    width: 100%;\n}\n\n.mermaid-container > pre > svg {\n    height: 500px;\n    width: 100%;\n    max-width: 100% !important;\n}\n\n.mermaid-fullscreen-btn {\n    position: absolute;\n    width: 28px;\n    height: 28px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.3);\n    border-radius: 4px;\n    cursor: pointer;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: all 0.2s;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);\n    font-size: 14px;\n    line-height: 1;\n    padding: 0;\n    color: #333;\n}\n\n.mermaid-fullscreen-btn:hover {\n    opacity: 100% !important;\n    background: rgba(255, 255, 255, 1);\n    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-btn.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.3);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-btn.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal {\n    display: none;\n    position: fixed !important;\n    top: 0 !important;\n    left: 0 !important;\n    width: 95vw;\n    height: 100vh;\n    background: rgba(255, 255, 255, 0.98);\n    z-index: 9999;\n    padding: 20px;\n    overflow: auto;\n}\n\n.mermaid-fullscreen-modal.dark-theme {\n    background: rgba(0, 0, 0, 0.98);\n}\n\n.mermaid-fullscreen-modal.active {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen {\n    position: relative;\n    width: 95vw;\n    height: 90vh;\n    max-width: 95vw;\n    max-height: 90vh;\n    background: white;\n    border-radius: 8px;\n    padding: 20px;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);\n    overflow: auto;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen.dark-theme {\n    background: #1a1a1a;\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);\n}\n\n.mermaid-container-fullscreen pre.mermaid {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.mermaid-container-fullscreen .mermaid svg {\n    height: 100% !important;\n    width: 100% !important;\n    cursor: grab;\n}\n\n.mermaid-fullscreen-close {\n    position: fixed !important;\n    top: 20px !important;\n    right: 20px !important;\n    width: 40px;\n    height: 40px;\n    background: rgba(255, 255, 255, 0.95);\n    border: 1px solid rgba(0, 0, 0, 0.2);\n    border-radius: 50%;\n    cursor: pointer;\n    z-index: 10000;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);\n    transition: all 0.2s;\n    font-size: 24px;\n    line-height: 1;\n    color: #333;\n}\n\n.mermaid-fullscreen-close:hover {\n    background: white;\n    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);\n    transform: scale(1.1);\n}\n\n.mermaid-fullscreen-close.dark-theme {\n    background: rgba(50, 50, 50, 0.95);\n    border: 1px solid rgba(255, 255, 255, 0.2);\n    color: #e0e0e0;\n}\n\n.mermaid-fullscreen-close.dark-theme:hover {\n    background: rgba(60, 60, 60, 1);\n    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);\n}\n\n.mermaid-fullscreen-modal .mermaid-fullscreen-btn {\n    display: none !important;\n}";
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+let _lazyObserver = null;
+let _renderQueue = Promise.resolve();
+let closeModal = () => {};
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('active')) {
+        closeModal();
+    }
+});
+
+// Apply d3 zoom to each SVG. Idempotent: an SVG already wrapped is skipped,
+// so this is safe to call both for the initial batch and for diagrams that
+// render lazily once they become visible.
+const addZoomToSvgs = (svgs) => {
+    svgs.each(function() {
+        if (this.getAttribute('data-zoom-applied') === 'true') return;
+        var svg = d3.select(this);
+        svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+        var inner = svg.select("g");
+        var zoom = d3.zoom().on("zoom", function(event) {
+            inner.attr("transform", event.transform);
+        });
+        svg.call(zoom);
+        this.setAttribute('data-zoom-applied', 'true');
+    });
+};
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        // Disconnect any previous lazy rendering observer
+        if (_lazyObserver) {
+            _lazyObserver.disconnect();
+            _lazyObserver = null;
+        }
+
+        all_mermaids.forEach((el) => {
+            el.removeAttribute('data-mermaid-deferred');
+            el.removeAttribute('data-mermaid-render-failed');
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+
+        // Separate visible and hidden elements. Mermaid's layout engine measures
+        // text dimensions via the DOM, which fails for elements hidden by a parent
+        // (e.g., Reveal.js non-active slides, sphinx-design unopened tabs),
+        // producing broken SVGs. Render visible elements now, defer hidden ones.
+        const visible = [];
+        const hidden = [];
+        all_mermaids.forEach((el) => {
+            // offsetParent is null for display:none ancestors.
+            // getClientRects().length > 0 catches position:fixed elements
+            // (which also have null offsetParent but are still visible).
+            if (el.offsetParent !== null || el.getClientRects().length > 0) {
+                visible.push(el);
+            } else {
+                hidden.push(el);
+                el.setAttribute('data-mermaid-deferred', 'true');
+            }
+        });
+
+        if (visible.length > 0) {
+            try {
+                await mermaid.run({ nodes: visible });
+            } catch (e) {
+                console.error("Mermaid rendering failed:", e);
+            }
+        }
+
+        // Lazily render hidden elements when they become visible.
+        // Uses a promise chain (_renderQueue) to serialize rendering,
+        // since IntersectionObserver may report multiple entries at once
+        // and mermaid.run() is not safe to call concurrently.
+        if (hidden.length > 0) {
+            if (typeof IntersectionObserver === 'undefined') {
+                console.warn("IntersectionObserver not available; hidden mermaid diagrams will not render.");
+            } else {
+                _renderQueue = Promise.resolve();
+                _lazyObserver = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting && entry.target.getAttribute("data-processed") !== "true") {
+                            _lazyObserver.unobserve(entry.target);
+                            const el = entry.target;
+                            _renderQueue = _renderQueue.then(async () => {
+                                try {
+                                    await mermaid.run({ nodes: [el] });
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    // Apply zoom to the now-rendered diagram, matching
+                                    // the decoration visible diagrams receive.
+                                    if (false) {
+                                        addZoomToSvgs(d3.selectAll("").select(function() {
+                                            return this.querySelector("svg");
+                                        }));
+                                    }
+                                } catch (e) {
+                                    console.error("Mermaid deferred rendering failed:", e);
+                                    el.removeAttribute('data-mermaid-deferred');
+                                    el.setAttribute('data-mermaid-render-failed', 'true');
+                                }
+                            });
+                        }
+                    }
+                });
+                hidden.forEach((el) => _lazyObserver.observe(el));
+            }
+        }
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    // Exclude deferred (hidden) and render-failed elements from completion checks
+    const mermaids_active = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])");
+    const mermaids_processed = document.querySelectorAll(".mermaid:not([data-mermaid-deferred]):not([data-mermaid-render-failed])[data-processed='true']");
+
+    if (false) {
+        const mermaids_to_add_zoom = 0 === -1 ? mermaids_active.length : 0;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("").select(function() {
+                return this.querySelector("svg");
+            });
+            // Wait until every active (visible) diagram has rendered. Deferred
+            // diagrams are excluded, so a fixed d3_node_count that counts a
+            // hidden diagram no longer loops forever waiting for its SVG.
+            if(mermaids_active.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            }
+            addZoomToSvgs(svgs);
+        }
+    } else if(mermaids_active.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if (!true) return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = "\u26f6";
+        fullscreenBtn.style.opacity = "50%";
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scrollX, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.display = 'block';
+
+                if (false) {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+
+
+const load = async () => {
+    initStyles();
+
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...{"startOnLoad": false},
+                ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...{"startOnLoad": false},
+    ...{ darkMode: darkTheme, theme: darkTheme ? "dark" : "default" },
+    }
+);
+
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            User Access Control
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Project Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Project Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../architecture.html">System Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../database.html">Database Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authorization.html">Authorization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Python Modules Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../testing.html">Testing Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../deployment.html">Deployment Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">User Access Control</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">app.auth</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for app.auth</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Authentication module for the User Access Control application.</span>
+
+<span class="sd">This module defines the authentication API router and imports the</span>
+<span class="sd">functions required to handle user login, logout, session management,</span>
+<span class="sd">and home page functionality.</span>
+
+<span class="sd">It uses FastAPI form handling, database queries, password verification,</span>
+<span class="sd">and session-based authentication to manage user access.</span>
+
+<span class="sd">Imports:</span>
+<span class="sd">    escape: Escapes special HTML characters to help prevent HTML injection.</span>
+<span class="sd">    APIRouter: Creates a router for registering authentication endpoints.</span>
+<span class="sd">    Request: Provides access to request data and session information.</span>
+<span class="sd">    Form: Extracts form data submitted by users.</span>
+<span class="sd">    HTMLResponse: Returns HTML content as an HTTP response.</span>
+<span class="sd">    RedirectResponse: Redirects users to another URL.</span>
+<span class="sd">    Response: Base response class for HTML and redirect responses.</span>
+<span class="sd">    get_user_by_username: Retrieves a user record using their username.</span>
+<span class="sd">    verify_password: Checks the entered password against the stored hash.</span>
+<span class="sd">    load_html: Loads HTML templates from the application&#39;s HTML directory.</span>
+<span class="sd">    current_user: Retrieves the currently logged-in user&#39;s database record.</span>
+<span class="sd">    get_user_pages: Retrieves the pages assigned to a user.</span>
+
+<span class="sd">Global Variables:</span>
+<span class="sd">    router (APIRouter): Router used to register authentication endpoints.</span>
+
+<span class="sd">Authentication Features:</span>
+<span class="sd">    - User login and password verification.</span>
+<span class="sd">    - Session management after successful login.</span>
+<span class="sd">    - Logout and session clearing.</span>
+<span class="sd">    - Home page access for authenticated users.</span>
+<span class="sd">    - Retrieving user-specific page permissions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">html</span><span class="w"> </span><span class="kn">import</span> <span class="n">escape</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Form</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTMLResponse</span><span class="p">,</span> <span class="n">RedirectResponse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">starlette.responses</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_user_by_username</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.security</span><span class="w"> </span><span class="kn">import</span> <span class="n">verify_password</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_html</span><span class="p">,</span> <span class="n">current_user</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.access</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_user_pages</span>  <span class="c1"># written by Member B: returns e.g. [&quot;page1&quot;, &quot;page2&quot;]</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+
+
+<div class="viewcode-block" id="root">
+<a class="viewcode-back" href="../../modules.html#app.auth.root">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">root</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RedirectResponse</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle requests to the root URL (&quot;/&quot;) and redirect users</span>
+<span class="sd">    based on their login status.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (Request): Incoming HTTP request object.</span>
+<span class="sd">                           Contains the user&#39;s session information.</span>
+
+<span class="sd">    What it does:</span>
+<span class="sd">        1. Receives a request when the user visits the root URL.</span>
+<span class="sd">        2. Checks whether the user&#39;s session contains a &quot;user_id&quot;.</span>
+<span class="sd">        3. If user_id exists, redirects the user to &quot;/home&quot;.</span>
+<span class="sd">        4. If user_id does not exist, redirects the user to &quot;/login&quot;.</span>
+<span class="sd">        5. Uses HTTP status code 303 to perform the redirect.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        RedirectResponse: Redirects the user to either:</span>
+<span class="sd">                          - &quot;/home&quot; if the user is logged in.</span>
+<span class="sd">                          - &quot;/login&quot; if the user is not logged in.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Logged-in user:</span>
+<span class="sd">            GET /</span>
+<span class="sd">            Redirects to /home</span>
+
+<span class="sd">        Not logged-in user:</span>
+<span class="sd">            GET /</span>
+<span class="sd">            Redirects to /login</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">RedirectResponse</span><span class="p">(</span>
+        <span class="s2">&quot;/home&quot;</span> <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user_id&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;/login&quot;</span><span class="p">,</span>
+        <span class="n">status_code</span><span class="o">=</span><span class="mi">303</span>
+    <span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="login_form">
+<a class="viewcode-back" href="../../modules.html#app.auth.login_form">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">HTMLResponse</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">login_form</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">HTMLResponse</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display the login page to the user.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        None: This function does not require any input parameters.</span>
+
+<span class="sd">    What it does:</span>
+<span class="sd">        1. Handles GET requests to the &quot;/login&quot; URL.</span>
+<span class="sd">        2. Loads the login.html file.</span>
+<span class="sd">        3. Replaces the &quot;__ERROR__&quot; placeholder with an empty string.</span>
+<span class="sd">           This ensures that no error message is displayed initially.</span>
+<span class="sd">        4. Returns the updated HTML content as a response.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        HTMLResponse: Returns the login page HTML content</span>
+<span class="sd">                      with the error message placeholder cleared.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Request:</span>
+<span class="sd">            GET /login</span>
+
+<span class="sd">        Output:</span>
+<span class="sd">            Displays the login page without an error message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">HTMLResponse</span><span class="p">(</span>
+        <span class="n">load_html</span><span class="p">(</span><span class="s2">&quot;login.html&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__ERROR__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="login">
+<a class="viewcode-back" href="../../modules.html#app.auth.login">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">HTMLResponse</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span>
+    <span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>
+    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Form</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Authenticate a user using their username and password.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (Request): Incoming HTTP request object.</span>
+<span class="sd">                           Used to access and manage the user session.</span>
+
+<span class="sd">        username (str): Username entered in the login form.</span>
+<span class="sd">                        Required form field.</span>
+
+<span class="sd">        password (str): Password entered in the login form.</span>
+<span class="sd">                        Required form field.</span>
+
+<span class="sd">    What it does:</span>
+<span class="sd">        1. Receives the username and password submitted through</span>
+<span class="sd">           the login form.</span>
+<span class="sd">        2. Removes leading and trailing whitespace from the username.</span>
+<span class="sd">        3. Fetches the user details from the database using</span>
+<span class="sd">           get_user_by_username().</span>
+<span class="sd">        4. Checks whether the user exists.</span>
+<span class="sd">        5. Verifies the entered password against the stored</span>
+<span class="sd">           password hash using verify_password().</span>
+<span class="sd">        6. If the username or password is incorrect:</span>
+<span class="sd">           - Displays an error message.</span>
+<span class="sd">           - Returns the login page with HTTP status code 401.</span>
+<span class="sd">        7. If authentication is successful:</span>
+<span class="sd">           - Clears the existing session.</span>
+<span class="sd">           - Stores the user&#39;s ID in the session.</span>
+<span class="sd">           - Redirects the user to the home page.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        HTMLResponse | RedirectResponse:</span>
+<span class="sd">            HTMLResponse: Returns the login page with an error</span>
+<span class="sd">                          message if authentication fails.</span>
+
+<span class="sd">            RedirectResponse: Redirects the authenticated user</span>
+<span class="sd">                              to &quot;/home&quot; with HTTP status code 303.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Input:</span>
+<span class="sd">            username = &quot;admin&quot;</span>
+<span class="sd">            password = &quot;admin123&quot;</span>
+
+<span class="sd">        Successful login:</span>
+<span class="sd">            Redirects to &quot;/home&quot;.</span>
+
+<span class="sd">        Failed login:</span>
+<span class="sd">            Displays &quot;Wrong username or password.&quot;</span>
+<span class="sd">            and returns HTTP 401.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Fetch user details using the username</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">get_user_by_username</span><span class="p">(</span><span class="n">username</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+    <span class="c1"># Verify username and password</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">verify_password</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;password_hash&quot;</span><span class="p">]):</span>
+
+        <span class="c1"># Prepare login error message</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="s1">&#39;&lt;p class=&quot;alert&quot;&gt;Wrong username or password.&lt;/p&gt;&#39;</span>
+
+        <span class="c1"># Return login page with error message</span>
+        <span class="k">return</span> <span class="n">HTMLResponse</span><span class="p">(</span>
+            <span class="n">load_html</span><span class="p">(</span><span class="s2">&quot;login.html&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__ERROR__&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">),</span>
+            <span class="n">status_code</span><span class="o">=</span><span class="mi">401</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Clear the existing session</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="c1"># Store authenticated user&#39;s ID in the session</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Redirect successfully authenticated user to home page</span>
+    <span class="k">return</span> <span class="n">RedirectResponse</span><span class="p">(</span>
+        <span class="s2">&quot;/home&quot;</span><span class="p">,</span>
+        <span class="n">status_code</span><span class="o">=</span><span class="mi">303</span>
+    <span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="logout">
+<a class="viewcode-back" href="../../modules.html#app.auth.logout">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logout</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RedirectResponse</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log out the currently authenticated user.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (Request): Incoming HTTP request object.</span>
+<span class="sd">                           Used to access and manage the user&#39;s session.</span>
+
+<span class="sd">    What it does:</span>
+<span class="sd">        1. Handles GET requests to the &quot;/logout&quot; URL.</span>
+<span class="sd">        2. Clears all data stored in the user&#39;s session.</span>
+<span class="sd">        3. Removes the user&#39;s login information from the session.</span>
+<span class="sd">        4. Redirects the user to the login page.</span>
+<span class="sd">        5. Uses HTTP status code 303 for redirection.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        RedirectResponse: Redirects the user to &quot;/login&quot;</span>
+<span class="sd">                          after clearing the session.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Request:</span>
+<span class="sd">            GET /logout</span>
+
+<span class="sd">        Output:</span>
+<span class="sd">            Clears the user session and redirects to &quot;/login&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Clear all session data</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+    <span class="c1"># Redirect the user to the login page</span>
+    <span class="k">return</span> <span class="n">RedirectResponse</span><span class="p">(</span>
+        <span class="s2">&quot;/login&quot;</span><span class="p">,</span>
+        <span class="n">status_code</span><span class="o">=</span><span class="mi">303</span>
+    <span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="home">
+<a class="viewcode-back" href="../../modules.html#app.auth.home">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/home&quot;</span><span class="p">,</span> <span class="n">response_class</span><span class="o">=</span><span class="n">HTMLResponse</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">home</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display the home page with the logged-in user&#39;s details</span>
+<span class="sd">    and assigned page links.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request (Request): Incoming HTTP request object.</span>
+<span class="sd">                           Used to identify the currently logged-in user</span>
+<span class="sd">                           and access session information.</span>
+
+<span class="sd">    What it does:</span>
+<span class="sd">        1. Handles GET requests to the &quot;/home&quot; URL.</span>
+<span class="sd">        2. Checks whether the user is logged in using current_user().</span>
+<span class="sd">        3. If the user is not logged in, redirects them to &quot;/login&quot;.</span>
+<span class="sd">        4. Retrieves the list of pages assigned to the user</span>
+<span class="sd">           using get_user_pages().</span>
+<span class="sd">        5. If the user has assigned pages:</span>
+<span class="sd">           - Generates HTML list items containing links to each page.</span>
+<span class="sd">           - Replaces &quot;page&quot; in page names with &quot;Page &quot; for display.</span>
+<span class="sd">        6. If no pages are assigned, displays a message:</span>
+<span class="sd">           &quot;No pages assigned to you yet.&quot;</span>
+<span class="sd">        7. Loads the home.html template.</span>
+<span class="sd">        8. Replaces the &quot;__NAME__&quot; placeholder with the user&#39;s</span>
+<span class="sd">           escaped full name.</span>
+<span class="sd">        9. Replaces the &quot;__LINKS__&quot; placeholder with the generated</span>
+<span class="sd">           page links or the no-pages message.</span>
+<span class="sd">        10. Returns the updated home page as an HTML response.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Response:</span>
+<span class="sd">            RedirectResponse: Redirects unauthenticated users</span>
+<span class="sd">                              to &quot;/login&quot; with status code 303.</span>
+
+<span class="sd">            HTMLResponse: Displays the home page with the user&#39;s</span>
+<span class="sd">                          name and assigned page links.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Logged-in user with assigned pages:</span>
+<span class="sd">            Displays the home page with the user&#39;s name</span>
+<span class="sd">            and available page links.</span>
+
+<span class="sd">        Logged-in user without assigned pages:</span>
+<span class="sd">            Displays &quot;No pages assigned to you yet.&quot;</span>
+
+<span class="sd">        Unauthenticated user:</span>
+<span class="sd">            Redirects to &quot;/login&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Get the currently logged-in user</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">current_user</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+    <span class="c1"># Redirect to login if the user is not authenticated</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RedirectResponse</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">303</span><span class="p">)</span>
+
+    <span class="c1"># Retrieve all pages assigned to the user</span>
+    <span class="n">pages</span> <span class="o">=</span> <span class="n">get_user_pages</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Generate HTML links for assigned pages</span>
+    <span class="k">if</span> <span class="n">pages</span><span class="p">:</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;&lt;li&gt;&lt;a href=&quot;/</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">p</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Page &quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&lt;/a&gt;&lt;/li&gt;&#39;</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pages</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Display a message if no pages are assigned</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="s2">&quot;&lt;li&gt;No pages assigned to you yet.&lt;/li&gt;&quot;</span>
+
+    <span class="c1"># Load the home page HTML template</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">load_html</span><span class="p">(</span><span class="s2">&quot;home.html&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Replace placeholders with user details and page links</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+        <span class="s2">&quot;__NAME__&quot;</span><span class="p">,</span> <span class="n">escape</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;full_name&quot;</span><span class="p">])</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+        <span class="s2">&quot;__LINKS__&quot;</span><span class="p">,</span> <span class="n">links</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Return the updated home page</span>
+    <span class="k">return</span> <span class="n">HTMLResponse</span><span class="p">(</span><span class="n">html</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Project Author.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,4 +1,3 @@
-
 Authentication
 ===============
 
@@ -25,6 +24,31 @@ The login process follows these steps:
 7. The user is redirected to the home page.
 8. If the credentials are invalid, an error message is displayed.
 
+Login Sequence Diagram
+----------------------
+
+.. mermaid::
+
+   sequenceDiagram
+       actor User
+       participant Auth as auth.py
+       participant DB as db.py (MySQL)
+       participant Sec as security.py
+       participant Session
+
+       User->>Auth: POST /login (username, password)
+       Auth->>DB: Get user by username
+       DB-->>Auth: User record and password hash
+       Auth->>Sec: verify_password(password, hash)
+       Sec-->>Auth: True / False
+
+       alt Valid credentials
+           Auth->>Session: Store user ID
+           Auth-->>User: Redirect to home
+       else Invalid credentials
+           Auth-->>User: Display login error
+       end
+
 Password Hashing
 ----------------
 
@@ -34,6 +58,26 @@ Password hashing converts a password into a secure hash before storing it
 in the database.
 
 During login, bcrypt verifies the submitted password against the stored hash.
+
+Code Example
+------------
+
+The following example demonstrates password hashing and password verification.
+
+.. code-block:: python
+
+   from app.security import hash_password, verify_password
+
+   # Generate a password hash during user registration
+   stored_hash = hash_password("MySecret@123")
+
+   # Verify the password during login
+   is_valid = verify_password("MySecret@123", stored_hash)
+
+   if is_valid:
+       print("Login successful")
+   else:
+       print("Invalid password")
 
 Session Management
 ------------------

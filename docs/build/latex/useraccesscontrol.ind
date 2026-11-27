@@ -1,0 +1,63 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{app.access}
+    \subitem \spxentry{module}, \hyperpage{21}
+  \item \spxentry{app.auth}
+    \subitem \spxentry{module}, \hyperpage{17}
+  \item \spxentry{app.db}
+    \subitem \spxentry{module}, \hyperpage{23}
+  \item \spxentry{app.main}
+    \subitem \spxentry{module}, \hyperpage{16}
+  \item \spxentry{app.security}
+    \subitem \spxentry{module}, \hyperpage{25}
+  \item \spxentry{app.utils}
+    \subitem \spxentry{module}, \hyperpage{26}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{current\_user()}\spxextra{in module app.utils}, \hyperpage{26}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{get\_connection()}\spxextra{in module app.db}, \hyperpage{23}
+  \item \spxentry{get\_user\_by\_id()}\spxextra{in module app.db}, \hyperpage{24}
+  \item \spxentry{get\_user\_by\_username()}\spxextra{in module app.db}, \hyperpage{24}
+  \item \spxentry{get\_user\_pages()}\spxextra{in module app.access}, \hyperpage{22}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{hash\_password()}\spxextra{in module app.security}, \hyperpage{25}
+  \item \spxentry{home()}\spxextra{in module app.auth}, \hyperpage{18}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{load\_html()}\spxextra{in module app.utils}, \hyperpage{27}
+  \item \spxentry{login()}\spxextra{in module app.auth}, \hyperpage{18}
+  \item \spxentry{login\_form()}\spxextra{in module app.auth}, \hyperpage{19}
+  \item \spxentry{logout()}\spxextra{in module app.auth}, \hyperpage{20}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{make\_page\_route()}\spxextra{in module app.access}, \hyperpage{22}
+  \item \spxentry{module}
+    \subitem \spxentry{app.access}, \hyperpage{21}
+    \subitem \spxentry{app.auth}, \hyperpage{17}
+    \subitem \spxentry{app.db}, \hyperpage{23}
+    \subitem \spxentry{app.main}, \hyperpage{16}
+    \subitem \spxentry{app.security}, \hyperpage{25}
+    \subitem \spxentry{app.utils}, \hyperpage{26}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{root()}\spxextra{in module app.auth}, \hyperpage{20}
+
+  \indexspace
+  \bigletter V
+  \item \spxentry{verify\_password()}\spxextra{in module app.security}, \hyperpage{25}
+
+\end{sphinxtheindex}

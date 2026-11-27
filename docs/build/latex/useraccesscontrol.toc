@@ -29,72 +29,83 @@
 \contentsline {subsubsection}{db.py}{10}{subsubsection*.9}%
 \contentsline {subsubsection}{security.py}{10}{subsubsection*.10}%
 \contentsline {subsubsection}{utils.py}{10}{subsubsection*.11}%
-\contentsline {subsection}{\numberline {3.3.4}Authentication and Authorization Flow}{10}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Conclusion}{10}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.4}Architecture Diagram}{10}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Module Dependency Diagram}{10}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Authentication and Authorization Flow}{10}{subsection.3.3.6}%
+\contentsline {subsubsection}{Login Sequence Diagram}{11}{subsubsection*.12}%
+\contentsline {subsubsection}{Page Access Sequence Diagram}{11}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {3.3.7}Conclusion}{11}{subsection.3.3.7}%
 \contentsline {section}{\numberline {3.4}Database Documentation}{11}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Introduction}{11}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Database Connectivity}{11}{subsection.3.4.2}%
 \contentsline {subsection}{\numberline {3.4.3}Database Tables}{11}{subsection.3.4.3}%
-\contentsline {subsubsection}{Users Table}{11}{subsubsection*.12}%
-\contentsline {subsubsection}{User Permissions Table}{11}{subsubsection*.13}%
+\contentsline {subsubsection}{Users Table}{11}{subsubsection*.14}%
+\contentsline {subsubsection}{User Permissions Table}{11}{subsubsection*.15}%
 \contentsline {subsection}{\numberline {3.4.4}User Permission Relationship}{11}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Database Operations}{11}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.5}Database Operations}{12}{subsection.3.4.5}%
 \contentsline {subsection}{\numberline {3.4.6}Database Security}{12}{subsection.3.4.6}%
 \contentsline {subsection}{\numberline {3.4.7}Conclusion}{12}{subsection.3.4.7}%
 \contentsline {section}{\numberline {3.5}Authentication}{12}{section.3.5}%
 \contentsline {subsection}{\numberline {3.5.1}Introduction}{12}{subsection.3.5.1}%
 \contentsline {subsection}{\numberline {3.5.2}Login Process}{12}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Password Hashing}{12}{subsection.3.5.3}%
-\contentsline {subsection}{\numberline {3.5.4}Session Management}{13}{subsection.3.5.4}%
-\contentsline {subsubsection}{Session Configuration}{13}{subsubsection*.14}%
-\contentsline {subsection}{\numberline {3.5.5}Logout Process}{13}{subsection.3.5.5}%
-\contentsline {subsection}{\numberline {3.5.6}Authentication Security}{13}{subsection.3.5.6}%
-\contentsline {subsection}{\numberline {3.5.7}Conclusion}{13}{subsection.3.5.7}%
-\contentsline {section}{\numberline {3.6}Authorization}{13}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Introduction}{13}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}Page\sphinxhyphen {}Level Access Control}{13}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.5.3}Login Sequence Diagram}{13}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}Password Hashing}{13}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}Code Example}{13}{subsection.3.5.5}%
+\contentsline {subsection}{\numberline {3.5.6}Session Management}{13}{subsection.3.5.6}%
+\contentsline {subsubsection}{Session Configuration}{13}{subsubsection*.16}%
+\contentsline {subsection}{\numberline {3.5.7}Logout Process}{13}{subsection.3.5.7}%
+\contentsline {subsection}{\numberline {3.5.8}Authentication Security}{14}{subsection.3.5.8}%
+\contentsline {subsection}{\numberline {3.5.9}Conclusion}{14}{subsection.3.5.9}%
+\contentsline {section}{\numberline {3.6}Authorization}{14}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Introduction}{14}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Page\sphinxhyphen {}Level Access Control}{14}{subsection.3.6.2}%
 \contentsline {subsection}{\numberline {3.6.3}Permission Checking}{14}{subsection.3.6.3}%
-\contentsline {subsection}{\numberline {3.6.4}Access Control Examples}{14}{subsection.3.6.4}%
-\contentsline {subsubsection}{Example 1: Authorized Access}{14}{subsubsection*.15}%
-\contentsline {subsubsection}{Example 2: Unauthorized Access}{14}{subsubsection*.16}%
-\contentsline {subsubsection}{Example 3: Administrator Access}{14}{subsubsection*.17}%
-\contentsline {subsection}{\numberline {3.6.5}Access Denied}{14}{subsection.3.6.5}%
-\contentsline {subsection}{\numberline {3.6.6}Benefits}{14}{subsection.3.6.6}%
-\contentsline {subsection}{\numberline {3.6.7}Conclusion}{14}{subsection.3.6.7}%
-\contentsline {section}{\numberline {3.7}Python Modules Documentation}{15}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Introduction}{15}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}main.py}{15}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}auth.py}{15}{subsection.3.7.3}%
-\contentsline {subsection}{\numberline {3.7.4}access.py}{15}{subsection.3.7.4}%
-\contentsline {subsection}{\numberline {3.7.5}db.py}{15}{subsection.3.7.5}%
-\contentsline {subsection}{\numberline {3.7.6}security.py}{16}{subsection.3.7.6}%
-\contentsline {subsection}{\numberline {3.7.7}utils.py}{16}{subsection.3.7.7}%
-\contentsline {subsection}{\numberline {3.7.8}HTML Templates}{16}{subsection.3.7.8}%
-\contentsline {subsubsection}{login.html}{16}{subsubsection*.18}%
-\contentsline {subsubsection}{home.html}{16}{subsubsection*.19}%
-\contentsline {subsubsection}{denied.html}{16}{subsubsection*.20}%
-\contentsline {subsubsection}{page1.html to page4.html}{16}{subsubsection*.21}%
-\contentsline {subsection}{\numberline {3.7.9}Static Files}{16}{subsection.3.7.9}%
-\contentsline {subsection}{\numberline {3.7.10}Conclusion}{16}{subsection.3.7.10}%
-\contentsline {section}{\numberline {3.8}Testing Documentation}{16}{section.3.8}%
-\contentsline {subsection}{\numberline {3.8.1}Introduction}{16}{subsection.3.8.1}%
-\contentsline {subsection}{\numberline {3.8.2}Authentication Testing}{17}{subsection.3.8.2}%
-\contentsline {subsubsection}{Login with Valid Credentials}{17}{subsubsection*.22}%
-\contentsline {subsubsection}{Login with Invalid Credentials}{17}{subsubsection*.23}%
-\contentsline {subsection}{\numberline {3.8.3}Logout Testing}{17}{subsection.3.8.3}%
-\contentsline {subsection}{\numberline {3.8.4}Authorization Testing}{17}{subsection.3.8.4}%
-\contentsline {subsubsection}{Authorized Page Access}{17}{subsubsection*.24}%
-\contentsline {subsubsection}{Unauthorized Page Access}{17}{subsubsection*.25}%
-\contentsline {subsubsection}{Administrator Access}{17}{subsubsection*.26}%
-\contentsline {subsection}{\numberline {3.8.5}Session Testing}{18}{subsection.3.8.5}%
-\contentsline {subsection}{\numberline {3.8.6}Database Testing}{18}{subsection.3.8.6}%
-\contentsline {subsection}{\numberline {3.8.7}Conclusion}{18}{subsection.3.8.7}%
-\contentsline {section}{\numberline {3.9}Deployment Guide}{18}{section.3.9}%
-\contentsline {subsection}{\numberline {3.9.1}Introduction}{18}{subsection.3.9.1}%
-\contentsline {subsection}{\numberline {3.9.2}Prerequisites}{18}{subsection.3.9.2}%
-\contentsline {subsection}{\numberline {3.9.3}Project Configuration}{18}{subsection.3.9.3}%
-\contentsline {subsection}{\numberline {3.9.4}Database Setup}{18}{subsection.3.9.4}%
-\contentsline {subsection}{\numberline {3.9.5}Run the Application Locally}{19}{subsection.3.9.5}%
-\contentsline {subsection}{\numberline {3.9.6}Production Deployment}{19}{subsection.3.9.6}%
-\contentsline {subsection}{\numberline {3.9.7}Security Recommendations}{19}{subsection.3.9.7}%
-\contentsline {subsection}{\numberline {3.9.8}Conclusion}{19}{subsection.3.9.8}%
+\contentsline {subsection}{\numberline {3.6.4}Permission Check Flow}{15}{subsection.3.6.4}%
+\contentsline {subsection}{\numberline {3.6.5}Code Example}{15}{subsection.3.6.5}%
+\contentsline {subsection}{\numberline {3.6.6}Access Control Examples}{15}{subsection.3.6.6}%
+\contentsline {subsubsection}{Example 1: Authorized Access}{15}{subsubsection*.17}%
+\contentsline {subsubsection}{Example 2: Unauthorized Access}{15}{subsubsection*.18}%
+\contentsline {subsubsection}{Example 3: Administrator Access}{15}{subsubsection*.19}%
+\contentsline {subsection}{\numberline {3.6.7}Access Denied}{15}{subsection.3.6.7}%
+\contentsline {subsection}{\numberline {3.6.8}Benefits}{15}{subsection.3.6.8}%
+\contentsline {subsection}{\numberline {3.6.9}Conclusion}{15}{subsection.3.6.9}%
+\contentsline {section}{\numberline {3.7}Python Modules Documentation}{16}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Introduction}{16}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Module Dependency Diagram}{16}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}main.py}{16}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}auth.py}{17}{subsection.3.7.4}%
+\contentsline {subsection}{\numberline {3.7.5}access.py}{21}{subsection.3.7.5}%
+\contentsline {subsection}{\numberline {3.7.6}db.py}{23}{subsection.3.7.6}%
+\contentsline {subsection}{\numberline {3.7.7}security.py}{25}{subsection.3.7.7}%
+\contentsline {subsection}{\numberline {3.7.8}utils.py}{26}{subsection.3.7.8}%
+\contentsline {subsection}{\numberline {3.7.9}HTML Templates}{27}{subsection.3.7.9}%
+\contentsline {subsubsection}{login.html}{27}{subsubsection*.40}%
+\contentsline {subsubsection}{home.html}{27}{subsubsection*.41}%
+\contentsline {subsubsection}{denied.html}{27}{subsubsection*.42}%
+\contentsline {subsubsection}{page1.html to page4.html}{27}{subsubsection*.43}%
+\contentsline {subsection}{\numberline {3.7.10}Static Files}{27}{subsection.3.7.10}%
+\contentsline {subsection}{\numberline {3.7.11}Conclusion}{28}{subsection.3.7.11}%
+\contentsline {section}{\numberline {3.8}Testing Documentation}{28}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Introduction}{28}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Authentication Testing}{28}{subsection.3.8.2}%
+\contentsline {subsubsection}{Login with Valid Credentials}{28}{subsubsection*.44}%
+\contentsline {subsubsection}{Login with Invalid Credentials}{28}{subsubsection*.45}%
+\contentsline {subsection}{\numberline {3.8.3}Logout Testing}{28}{subsection.3.8.3}%
+\contentsline {subsection}{\numberline {3.8.4}Authorization Testing}{28}{subsection.3.8.4}%
+\contentsline {subsubsection}{Authorized Page Access}{28}{subsubsection*.46}%
+\contentsline {subsubsection}{Unauthorized Page Access}{28}{subsubsection*.47}%
+\contentsline {subsubsection}{Administrator Access}{29}{subsubsection*.48}%
+\contentsline {subsection}{\numberline {3.8.5}Session Testing}{29}{subsection.3.8.5}%
+\contentsline {subsection}{\numberline {3.8.6}Database Testing}{29}{subsection.3.8.6}%
+\contentsline {subsection}{\numberline {3.8.7}Conclusion}{29}{subsection.3.8.7}%
+\contentsline {section}{\numberline {3.9}Deployment Guide}{29}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Introduction}{29}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Prerequisites}{29}{subsection.3.9.2}%
+\contentsline {subsection}{\numberline {3.9.3}Project Configuration}{29}{subsection.3.9.3}%
+\contentsline {subsection}{\numberline {3.9.4}Database Setup}{30}{subsection.3.9.4}%
+\contentsline {subsection}{\numberline {3.9.5}Run the Application Locally}{30}{subsection.3.9.5}%
+\contentsline {subsection}{\numberline {3.9.6}Production Deployment}{30}{subsection.3.9.6}%
+\contentsline {subsection}{\numberline {3.9.7}Security Recommendations}{30}{subsection.3.9.7}%
+\contentsline {subsection}{\numberline {3.9.8}Conclusion}{30}{subsection.3.9.8}%
+\contentsline {chapter}{Python Module Index}{31}{section*.49}%
+\contentsline {chapter}{Index}{33}{section*.50}%

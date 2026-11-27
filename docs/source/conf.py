@@ -16,6 +16,10 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.inheritance_diagram", # class diagrams (needs Graphviz)
+    "sphinx.ext.graphviz",
+    "sphinxcontrib.mermaid",          # easy architecture diagrams
 ]
 
 # HTML output settings

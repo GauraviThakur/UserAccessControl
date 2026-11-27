@@ -1,4 +1,3 @@
-
 Authorization
 =============
 
@@ -41,6 +40,44 @@ checks:
 4. Check whether the requested page exists in the user's permissions.
 5. Allow access if permission is available.
 6. Otherwise, deny access.
+
+Permission Check Flow
+---------------------
+
+The following diagram illustrates how the application checks user permissions
+before displaying a protected page.
+
+.. mermaid::
+
+   flowchart TD
+       A[User requests a page] --> B{Logged in?}
+       B -->|No| C[Redirect to login.html]
+       B -->|Yes| D[Get user ID from session]
+       D --> E[Load user's permitted pages]
+       E --> F{Page in permissions?}
+       F -->|Yes| G[Show requested page]
+       F -->|No| H[Show denied.html]
+
+Code Example
+------------
+
+The following example demonstrates how a permission-checking function works.
+
+.. code-block:: python
+
+   permissions = {
+       "priti": ["page1", "page2"],
+       "admin": ["page1", "page2", "page3", "page4"],
+   }
+
+   def can_access(username, page):
+       return page in permissions.get(username, [])
+
+   # Authorized access
+   can_access("priti", "page1")  # True
+
+   # Unauthorized access
+   can_access("priti", "page3")  # False
 
 Access Control Examples
 -----------------------

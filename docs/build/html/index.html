@@ -9,6 +9,7 @@
   <title>User Access Control Documentation &mdash; User Access Control 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -135,6 +136,8 @@ access only the pages permitted to them.</p>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#application-structure">Application Structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#main-components">Main Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#architecture-diagram">Architecture Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#module-dependency-diagram">Module Dependency Diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#authentication-and-authorization-flow">Authentication and Authorization Flow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html#conclusion">Conclusion</a></li>
 </ul>
@@ -152,7 +155,9 @@ access only the pages permitted to them.</p>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="authentication.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authentication.html#login-process">Login Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#login-sequence-diagram">Login Sequence Diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authentication.html#password-hashing">Password Hashing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentication.html#code-example">Code Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authentication.html#session-management">Session Management</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authentication.html#logout-process">Logout Process</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authentication.html#authentication-security">Authentication Security</a></li>
@@ -163,6 +168,8 @@ access only the pages permitted to them.</p>
 <li class="toctree-l2"><a class="reference internal" href="authorization.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorization.html#page-level-access-control">Page-Level Access Control</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorization.html#permission-checking">Permission Checking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authorization.html#permission-check-flow">Permission Check Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authorization.html#code-example">Code Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorization.html#access-control-examples">Access Control Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorization.html#access-denied">Access Denied</a></li>
 <li class="toctree-l2"><a class="reference internal" href="authorization.html#benefits">Benefits</a></li>
@@ -171,6 +178,7 @@ access only the pages permitted to them.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Python Modules Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-dependency-diagram">Module Dependency Diagram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.html#main-py">main.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.html#auth-py">auth.py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules.html#access-py">access.py</a></li>

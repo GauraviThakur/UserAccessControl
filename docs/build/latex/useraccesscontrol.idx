@@ -1,0 +1,26 @@
+\indexentry{module@\spxentry{module}!app.main@\spxentry{app.main}|hyperpage}{16}
+\indexentry{app.main@\spxentry{app.main}!module@\spxentry{module}|hyperpage}{16}
+\indexentry{module@\spxentry{module}!app.auth@\spxentry{app.auth}|hyperpage}{17}
+\indexentry{app.auth@\spxentry{app.auth}!module@\spxentry{module}|hyperpage}{17}
+\indexentry{home() (in module app.auth)@\spxentry{home()}\spxextra{in module app.auth}|hyperpage}{18}
+\indexentry{login() (in module app.auth)@\spxentry{login()}\spxextra{in module app.auth}|hyperpage}{18}
+\indexentry{login\_form() (in module app.auth)@\spxentry{login\_form()}\spxextra{in module app.auth}|hyperpage}{19}
+\indexentry{logout() (in module app.auth)@\spxentry{logout()}\spxextra{in module app.auth}|hyperpage}{20}
+\indexentry{root() (in module app.auth)@\spxentry{root()}\spxextra{in module app.auth}|hyperpage}{20}
+\indexentry{module@\spxentry{module}!app.access@\spxentry{app.access}|hyperpage}{21}
+\indexentry{app.access@\spxentry{app.access}!module@\spxentry{module}|hyperpage}{21}
+\indexentry{get\_user\_pages() (in module app.access)@\spxentry{get\_user\_pages()}\spxextra{in module app.access}|hyperpage}{22}
+\indexentry{make\_page\_route() (in module app.access)@\spxentry{make\_page\_route()}\spxextra{in module app.access}|hyperpage}{22}
+\indexentry{module@\spxentry{module}!app.db@\spxentry{app.db}|hyperpage}{23}
+\indexentry{app.db@\spxentry{app.db}!module@\spxentry{module}|hyperpage}{23}
+\indexentry{get\_connection() (in module app.db)@\spxentry{get\_connection()}\spxextra{in module app.db}|hyperpage}{23}
+\indexentry{get\_user\_by\_id() (in module app.db)@\spxentry{get\_user\_by\_id()}\spxextra{in module app.db}|hyperpage}{24}
+\indexentry{get\_user\_by\_username() (in module app.db)@\spxentry{get\_user\_by\_username()}\spxextra{in module app.db}|hyperpage}{24}
+\indexentry{module@\spxentry{module}!app.security@\spxentry{app.security}|hyperpage}{25}
+\indexentry{app.security@\spxentry{app.security}!module@\spxentry{module}|hyperpage}{25}
+\indexentry{hash\_password() (in module app.security)@\spxentry{hash\_password()}\spxextra{in module app.security}|hyperpage}{25}
+\indexentry{verify\_password() (in module app.security)@\spxentry{verify\_password()}\spxextra{in module app.security}|hyperpage}{25}
+\indexentry{module@\spxentry{module}!app.utils@\spxentry{app.utils}|hyperpage}{26}
+\indexentry{app.utils@\spxentry{app.utils}!module@\spxentry{module}|hyperpage}{26}
+\indexentry{current\_user() (in module app.utils)@\spxentry{current\_user()}\spxextra{in module app.utils}|hyperpage}{26}
+\indexentry{load\_html() (in module app.utils)@\spxentry{load\_html()}\spxextra{in module app.utils}|hyperpage}{27}

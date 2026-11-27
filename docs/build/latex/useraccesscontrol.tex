@@ -65,7 +65,7 @@
 
 
 \title{User Access Control}
-\date{Nov 24, 2026}
+\date{Nov 27, 2026}
 \release{1.0}
 \author{Project Author}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -488,6 +488,19 @@ hashing and password verification.
 This module contains reusable helper functions used by the application.
 
 
+\subsection{Architecture Diagram}
+\label{\detokenize{architecture:architecture-diagram}}
+\sphinxAtStartPar
+The diagram below shows how a browser request moves through the
+application components.
+
+
+\subsection{Module Dependency Diagram}
+\label{\detokenize{architecture:module-dependency-diagram}}
+\sphinxAtStartPar
+The diagram below shows which modules depend on which other modules.
+
+
 \subsection{Authentication and Authorization Flow}
 \label{\detokenize{architecture:authentication-and-authorization-flow}}
 \sphinxAtStartPar
@@ -528,6 +541,12 @@ Otherwise, the access denied page is displayed.
 
 \end{enumerate}
 
+
+\subsubsection{Login Sequence Diagram}
+\label{\detokenize{architecture:login-sequence-diagram}}
+
+\subsubsection{Page Access Sequence Diagram}
+\label{\detokenize{architecture:page-access-sequence-diagram}}
 
 \subsection{Conclusion}
 \label{\detokenize{architecture:conclusion}}
@@ -749,6 +768,9 @@ If the credentials are invalid, an error message is displayed.
 \end{enumerate}
 
 
+\subsection{Login Sequence Diagram}
+\label{\detokenize{authentication:login-sequence-diagram}}
+
 \subsection{Password Hashing}
 \label{\detokenize{authentication:password-hashing}}
 \sphinxAtStartPar
@@ -760,6 +782,27 @@ in the database.
 
 \sphinxAtStartPar
 During login, bcrypt verifies the submitted password against the stored hash.
+
+
+\subsection{Code Example}
+\label{\detokenize{authentication:code-example}}
+\sphinxAtStartPar
+The following example demonstrates password hashing and password verification.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{app}\PYG{n+nn}{.}\PYG{n+nn}{security}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{hash\PYGZus{}password}\PYG{p}{,} \PYG{n}{verify\PYGZus{}password}
+
+\PYG{c+c1}{\PYGZsh{} Generate a password hash during user registration}
+\PYG{n}{stored\PYGZus{}hash} \PYG{o}{=} \PYG{n}{hash\PYGZus{}password}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{MySecret@123}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Verify the password during login}
+\PYG{n}{is\PYGZus{}valid} \PYG{o}{=} \PYG{n}{verify\PYGZus{}password}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{MySecret@123}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{stored\PYGZus{}hash}\PYG{p}{)}
+
+\PYG{k}{if} \PYG{n}{is\PYGZus{}valid}\PYG{p}{:}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Login successful}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{else}\PYG{p}{:}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Invalid password}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
 
 
 \subsection{Session Management}
@@ -924,6 +967,35 @@ Otherwise, deny access.
 \end{enumerate}
 
 
+\subsection{Permission Check Flow}
+\label{\detokenize{authorization:permission-check-flow}}
+\sphinxAtStartPar
+The following diagram illustrates how the application checks user permissions
+before displaying a protected page.
+
+
+\subsection{Code Example}
+\label{\detokenize{authorization:code-example}}
+\sphinxAtStartPar
+The following example demonstrates how a permission\sphinxhyphen{}checking function works.
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{permissions} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+    \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{priti}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page2}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{,}
+    \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{admin}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page2}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page3}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page4}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{,}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{can\PYGZus{}access}\PYG{p}{(}\PYG{n}{username}\PYG{p}{,} \PYG{n}{page}\PYG{p}{)}\PYG{p}{:}
+    \PYG{k}{return} \PYG{n}{page} \PYG{o+ow}{in} \PYG{n}{permissions}\PYG{o}{.}\PYG{n}{get}\PYG{p}{(}\PYG{n}{username}\PYG{p}{,} \PYG{p}{[}\PYG{p}{]}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Authorized access}
+\PYG{n}{can\PYGZus{}access}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{priti}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} True}
+
+\PYG{c+c1}{\PYGZsh{} Unauthorized access}
+\PYG{n}{can\PYGZus{}access}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{priti}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page3}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} False}
+\end{sphinxVerbatim}
+
+
 \subsection{Access Control Examples}
 \label{\detokenize{authorization:access-control-examples}}
 
@@ -994,6 +1066,9 @@ The application is divided into multiple Python modules. Each module
 handles a specific responsibility to keep the code organized and maintainable.
 
 
+\subsection{Module Dependency Diagram}
+\label{\detokenize{modules:module-dependency-diagram}}
+
 \subsection{main.py}
 \label{\detokenize{modules:main-py}}
 \sphinxAtStartPar
@@ -1028,6 +1103,84 @@ Configure application exception handling.
 
 \end{itemize}
 
+\sphinxAtStartPar
+\sphinxstylestrong{Example usage}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Run the application from the project root}
+\PYG{c+c1}{\PYGZsh{}   uvicorn app.main:app \PYGZhy{}\PYGZhy{}reload}
+
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{fastapi}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{FastAPI}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{starlette}\PYG{n+nn}{.}\PYG{n+nn}{middleware}\PYG{n+nn}{.}\PYG{n+nn}{sessions}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{SessionMiddleware}
+
+\PYG{n}{app} \PYG{o}{=} \PYG{n}{FastAPI}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{app}\PYG{o}{.}\PYG{n}{add\PYGZus{}middleware}\PYG{p}{(}\PYG{n}{SessionMiddleware}\PYG{p}{,} \PYG{n}{secret\PYGZus{}key}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{change\PYGZhy{}this\PYGZhy{}secret}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+\sphinxstylestrong{API reference}
+\index{module@\spxentry{module}!app.main@\spxentry{app.main}}\index{app.main@\spxentry{app.main}!module@\spxentry{module}}\phantomsection\label{\detokenize{modules:module-app.main}}
+\sphinxAtStartPar
+Main module for the User Access Control application.
+
+\sphinxAtStartPar
+This module initializes and configures the FastAPI application,
+loads environment variables, sets up session management, serves
+static files, and registers application routers.
+\begin{description}
+\sphinxlineitem{Application Setup:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Loads environment variables from the .env file using load\_dotenv().
+
+\item {} 
+\sphinxAtStartPar
+Imports authentication and access\sphinxhyphen{}control routers.
+
+\item {} 
+\sphinxAtStartPar
+Creates a FastAPI application instance.
+
+\item {} 
+\sphinxAtStartPar
+Adds SessionMiddleware to manage user sessions securely.
+
+\item {} 
+\sphinxAtStartPar
+Mounts the static directory to serve CSS, JavaScript, and other
+static files.
+
+\item {} 
+\sphinxAtStartPar
+Registers the authentication and access\sphinxhyphen{}control routers.
+
+\end{enumerate}
+
+\sphinxlineitem{Environment Variables:}\begin{description}
+\sphinxlineitem{SECRET\_KEY (str): Secret key used by SessionMiddleware to sign}
+\sphinxAtStartPar
+session cookies. Uses a development default if not configured.
+
+\end{description}
+
+\sphinxlineitem{Modules:}
+\sphinxAtStartPar
+auth: Handles login, logout, and home page functionality.
+access: Handles page1\sphinxhyphen{}page4 routes and user access permissions.
+utils: Provides BASE\_DIR for locating application resources.
+
+\sphinxlineitem{Static Files:}
+\sphinxAtStartPar
+URL: /static
+Directory: BASE\_DIR/static
+
+\sphinxlineitem{Application:}
+\sphinxAtStartPar
+app: The main FastAPI application instance.
+
+\end{description}
+
 
 \subsection{auth.py}
 \label{\detokenize{modules:auth-py}}
@@ -1059,6 +1212,536 @@ Clear user sessions.
 
 \end{itemize}
 
+\sphinxAtStartPar
+\sphinxstylestrong{Example usage}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} POST /login  (form fields: username, password)}
+\PYG{c+c1}{\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{} Valid credentials   \PYGZhy{}\PYGZgt{} user ID stored in session, redirect to home page}
+\PYG{c+c1}{\PYGZsh{} Invalid credentials \PYGZhy{}\PYGZgt{} login.html shown again with an error message}
+\PYG{c+c1}{\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{} GET /logout}
+\PYG{c+c1}{\PYGZsh{}}
+\PYG{c+c1}{\PYGZsh{} Session cleared \PYGZhy{}\PYGZgt{} redirect to login page}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+\sphinxstylestrong{API reference}
+\index{module@\spxentry{module}!app.auth@\spxentry{app.auth}}\index{app.auth@\spxentry{app.auth}!module@\spxentry{module}}\phantomsection\label{\detokenize{modules:module-app.auth}}
+\sphinxAtStartPar
+Authentication module for the User Access Control application.
+
+\sphinxAtStartPar
+This module defines the authentication API router and imports the
+functions required to handle user login, logout, session management,
+and home page functionality.
+
+\sphinxAtStartPar
+It uses FastAPI form handling, database queries, password verification,
+and session\sphinxhyphen{}based authentication to manage user access.
+\begin{description}
+\sphinxlineitem{Imports:}
+\sphinxAtStartPar
+escape: Escapes special HTML characters to help prevent HTML injection.
+APIRouter: Creates a router for registering authentication endpoints.
+Request: Provides access to request data and session information.
+Form: Extracts form data submitted by users.
+HTMLResponse: Returns HTML content as an HTTP response.
+RedirectResponse: Redirects users to another URL.
+Response: Base response class for HTML and redirect responses.
+get\_user\_by\_username: Retrieves a user record using their username.
+verify\_password: Checks the entered password against the stored hash.
+load\_html: Loads HTML templates from the application’s HTML directory.
+current\_user: Retrieves the currently logged\sphinxhyphen{}in user’s database record.
+get\_user\_pages: Retrieves the pages assigned to a user.
+
+\sphinxlineitem{Global Variables:}
+\sphinxAtStartPar
+router (APIRouter): Router used to register authentication endpoints.
+
+\sphinxlineitem{Authentication Features:}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+User login and password verification.
+
+\item {} 
+\sphinxAtStartPar
+Session management after successful login.
+
+\item {} 
+\sphinxAtStartPar
+Logout and session clearing.
+
+\item {} 
+\sphinxAtStartPar
+Home page access for authenticated users.
+
+\item {} 
+\sphinxAtStartPar
+Retrieving user\sphinxhyphen{}specific page permissions.
+
+\end{itemize}
+
+\end{description}
+\index{home() (in module app.auth)@\spxentry{home()}\spxextra{in module app.auth}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.auth.home}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.auth.}}\sphinxbfcode{\sphinxupquote{home}}}
+{\sphinxparam{\DUrole{n}{request}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{Request}}}
+{{ $\rightarrow$ Response}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Display the home page with the logged\sphinxhyphen{}in user’s details
+and assigned page links.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{request}} (\sphinxstyleliteralemphasis{\sphinxupquote{Request}}) \textendash{} Incoming HTTP request object.
+Used to identify the currently logged\sphinxhyphen{}in user
+and access session information.
+
+\end{description}\end{quote}
+\begin{description}
+\sphinxlineitem{What it does:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Handles GET requests to the “/home” URL.
+
+\item {} 
+\sphinxAtStartPar
+Checks whether the user is logged in using current\_user().
+
+\item {} 
+\sphinxAtStartPar
+If the user is not logged in, redirects them to “/login”.
+
+\item {} 
+\sphinxAtStartPar
+Retrieves the list of pages assigned to the user
+using get\_user\_pages().
+
+\item {} 
+\sphinxAtStartPar
+If the user has assigned pages:
+\sphinxhyphen{} Generates HTML list items containing links to each page.
+\sphinxhyphen{} Replaces “page” in page names with “Page “ for display.
+
+\item {} 
+\sphinxAtStartPar
+If no pages are assigned, displays a message:
+“No pages assigned to you yet.”
+
+\item {} 
+\sphinxAtStartPar
+Loads the home.html template.
+
+\item {} 
+\sphinxAtStartPar
+Replaces the “\_\_NAME\_\_” placeholder with the user’s
+escaped full name.
+
+\item {} 
+\sphinxAtStartPar
+Replaces the “\_\_LINKS\_\_” placeholder with the generated
+page links or the no\sphinxhyphen{}pages message.
+
+\item {} 
+\sphinxAtStartPar
+Returns the updated home page as an HTML response.
+
+\end{enumerate}
+
+\end{description}
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{description}
+\sphinxlineitem{RedirectResponse: Redirects unauthenticated users}
+\sphinxAtStartPar
+to “/login” with status code 303.
+
+\sphinxlineitem{HTMLResponse: Displays the home page with the user’s}
+\sphinxAtStartPar
+name and assigned page links.
+
+\end{description}
+
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+Response
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+\begin{description}
+\sphinxlineitem{Logged\sphinxhyphen{}in user with assigned pages:}
+\sphinxAtStartPar
+Displays the home page with the user’s name
+and available page links.
+
+\sphinxlineitem{Logged\sphinxhyphen{}in user without assigned pages:}
+\sphinxAtStartPar
+Displays “No pages assigned to you yet.”
+
+\sphinxlineitem{Unauthenticated user:}
+\sphinxAtStartPar
+Redirects to “/login”.
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{login() (in module app.auth)@\spxentry{login()}\spxextra{in module app.auth}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.auth.login}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.auth.}}\sphinxbfcode{\sphinxupquote{login}}}
+{\sphinxparam{\DUrole{n}{request}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{Request}}\sphinxparamcomma \sphinxparam{\DUrole{n}{username}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{Form(PydanticUndefined)}}\sphinxparamcomma \sphinxparam{\DUrole{n}{password}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}\DUrole{w}{ }\DUrole{o}{=}\DUrole{w}{ }\DUrole{default_value}{Form(PydanticUndefined)}}}
+{{ $\rightarrow$ Response}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Authenticate a user using their username and password.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{request}} (\sphinxstyleliteralemphasis{\sphinxupquote{Request}}) \textendash{} Incoming HTTP request object.
+Used to access and manage the user session.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{username}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} Username entered in the login form.
+Required form field.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{password}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} Password entered in the login form.
+Required form field.
+
+\end{itemize}
+
+\end{description}\end{quote}
+\begin{description}
+\sphinxlineitem{What it does:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Receives the username and password submitted through
+the login form.
+
+\item {} 
+\sphinxAtStartPar
+Removes leading and trailing whitespace from the username.
+
+\item {} 
+\sphinxAtStartPar
+Fetches the user details from the database using
+get\_user\_by\_username().
+
+\item {} 
+\sphinxAtStartPar
+Checks whether the user exists.
+
+\item {} 
+\sphinxAtStartPar
+Verifies the entered password against the stored
+password hash using verify\_password().
+
+\item {} 
+\sphinxAtStartPar
+If the username or password is incorrect:
+\sphinxhyphen{} Displays an error message.
+\sphinxhyphen{} Returns the login page with HTTP status code 401.
+
+\item {} 
+\sphinxAtStartPar
+If authentication is successful:
+\sphinxhyphen{} Clears the existing session.
+\sphinxhyphen{} Stores the user’s ID in the session.
+\sphinxhyphen{} Redirects the user to the home page.
+
+\end{enumerate}
+
+\end{description}
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{description}
+\sphinxlineitem{HTMLResponse: Returns the login page with an error}
+\sphinxAtStartPar
+message if authentication fails.
+
+\sphinxlineitem{RedirectResponse: Redirects the authenticated user}
+\sphinxAtStartPar
+to “/home” with HTTP status code 303.
+
+\end{description}
+
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+HTMLResponse | RedirectResponse
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+\begin{description}
+\sphinxlineitem{Input:}
+\sphinxAtStartPar
+username = “admin”
+password = “admin123”
+
+\sphinxlineitem{Successful login:}
+\sphinxAtStartPar
+Redirects to “/home”.
+
+\sphinxlineitem{Failed login:}
+\sphinxAtStartPar
+Displays “Wrong username or password.”
+and returns HTTP 401.
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{login\_form() (in module app.auth)@\spxentry{login\_form()}\spxextra{in module app.auth}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.auth.login_form}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.auth.}}\sphinxbfcode{\sphinxupquote{login\_form}}}
+{}
+{{ $\rightarrow$ HTMLResponse}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Display the login page to the user.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{None}} \textendash{} This function does not require any input parameters.
+
+\end{description}\end{quote}
+\begin{description}
+\sphinxlineitem{What it does:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Handles GET requests to the “/login” URL.
+
+\item {} 
+\sphinxAtStartPar
+Loads the login.html file.
+
+\item {} 
+\sphinxAtStartPar
+Replaces the “\_\_ERROR\_\_” placeholder with an empty string.
+This ensures that no error message is displayed initially.
+
+\item {} 
+\sphinxAtStartPar
+Returns the updated HTML content as a response.
+
+\end{enumerate}
+
+\end{description}
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{description}
+\sphinxlineitem{Returns the login page HTML content}
+\sphinxAtStartPar
+with the error message placeholder cleared.
+
+\end{description}
+
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+HTMLResponse
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+\begin{description}
+\sphinxlineitem{Request:}
+\sphinxAtStartPar
+GET /login
+
+\sphinxlineitem{Output:}
+\sphinxAtStartPar
+Displays the login page without an error message.
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{logout() (in module app.auth)@\spxentry{logout()}\spxextra{in module app.auth}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.auth.logout}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.auth.}}\sphinxbfcode{\sphinxupquote{logout}}}
+{\sphinxparam{\DUrole{n}{request}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{Request}}}
+{{ $\rightarrow$ RedirectResponse}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Log out the currently authenticated user.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{request}} (\sphinxstyleliteralemphasis{\sphinxupquote{Request}}) \textendash{} Incoming HTTP request object.
+Used to access and manage the user’s session.
+
+\end{description}\end{quote}
+\begin{description}
+\sphinxlineitem{What it does:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Handles GET requests to the “/logout” URL.
+
+\item {} 
+\sphinxAtStartPar
+Clears all data stored in the user’s session.
+
+\item {} 
+\sphinxAtStartPar
+Removes the user’s login information from the session.
+
+\item {} 
+\sphinxAtStartPar
+Redirects the user to the login page.
+
+\item {} 
+\sphinxAtStartPar
+Uses HTTP status code 303 for redirection.
+
+\end{enumerate}
+
+\end{description}
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{description}
+\sphinxlineitem{Redirects the user to “/login”}
+\sphinxAtStartPar
+after clearing the session.
+
+\end{description}
+
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+RedirectResponse
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+\begin{description}
+\sphinxlineitem{Request:}
+\sphinxAtStartPar
+GET /logout
+
+\sphinxlineitem{Output:}
+\sphinxAtStartPar
+Clears the user session and redirects to “/login”.
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{root() (in module app.auth)@\spxentry{root()}\spxextra{in module app.auth}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.auth.root}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.auth.}}\sphinxbfcode{\sphinxupquote{root}}}
+{\sphinxparam{\DUrole{n}{request}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{Request}}}
+{{ $\rightarrow$ RedirectResponse}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Handle requests to the root URL (“/”) and redirect users
+based on their login status.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{request}} (\sphinxstyleliteralemphasis{\sphinxupquote{Request}}) \textendash{} Incoming HTTP request object.
+Contains the user’s session information.
+
+\end{description}\end{quote}
+\begin{description}
+\sphinxlineitem{What it does:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Receives a request when the user visits the root URL.
+
+\item {} 
+\sphinxAtStartPar
+Checks whether the user’s session contains a “user\_id”.
+
+\item {} 
+\sphinxAtStartPar
+If user\_id exists, redirects the user to “/home”.
+
+\item {} 
+\sphinxAtStartPar
+If user\_id does not exist, redirects the user to “/login”.
+
+\item {} 
+\sphinxAtStartPar
+Uses HTTP status code 303 to perform the redirect.
+
+\end{enumerate}
+
+\end{description}
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{description}
+\sphinxlineitem{Redirects the user to either:}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+”/home” if the user is logged in.
+
+\item {} 
+\sphinxAtStartPar
+”/login” if the user is not logged in.
+
+\end{itemize}
+
+\end{description}
+
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+RedirectResponse
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+\begin{description}
+\sphinxlineitem{Logged\sphinxhyphen{}in user:}
+\sphinxAtStartPar
+GET /
+Redirects to /home
+
+\sphinxlineitem{Not logged\sphinxhyphen{}in user:}
+\sphinxAtStartPar
+GET /
+Redirects to /login
+
+\end{description}
+
+\end{fulllineitems}
+
+
 
 \subsection{access.py}
 \label{\detokenize{modules:access-py}}
@@ -1085,6 +1768,202 @@ Protect restricted pages.
 Handle unauthorized access.
 
 \end{itemize}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Example usage}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{app}\PYG{n+nn}{.}\PYG{n+nn}{access}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{check\PYGZus{}page\PYGZus{}access}
+
+\PYG{k}{if} \PYG{n}{check\PYGZus{}page\PYGZus{}access}\PYG{p}{(}\PYG{n}{username}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{priti}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{page}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Show page1.html}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}      \PYG{c+c1}{\PYGZsh{} Priti has page1 permission}
+\PYG{k}{else}\PYG{p}{:}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Show denied.html}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{check\PYGZus{}page\PYGZus{}access}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{priti}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page3}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}   \PYG{c+c1}{\PYGZsh{} False \PYGZhy{}\PYGZgt{} denied.html}
+\PYG{n}{check\PYGZus{}page\PYGZus{}access}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{admin}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{page3}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}   \PYG{c+c1}{\PYGZsh{} True  \PYGZhy{}\PYGZgt{} page3.html}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+\sphinxstylestrong{API reference}
+\index{module@\spxentry{module}!app.access@\spxentry{app.access}}\index{app.access@\spxentry{app.access}!module@\spxentry{module}}\phantomsection\label{\detokenize{modules:module-app.access}}
+\sphinxAtStartPar
+Access Control module for the User Access Control application.
+
+\sphinxAtStartPar
+This module defines the API router and configuration required to manage
+protected pages and control user access based on assigned permissions.
+
+\sphinxAtStartPar
+It uses FastAPI routing, database connections, session\sphinxhyphen{}based authentication,
+and HTML response handling to provide authorized access to application pages.
+\begin{description}
+\sphinxlineitem{Imports:}
+\sphinxAtStartPar
+escape: Escapes special HTML characters to help prevent HTML injection.
+APIRouter: Creates a router for registering application endpoints.
+Request: Provides access to request and session information.
+HTMLResponse: Returns HTML content as an HTTP response.
+RedirectResponse: Redirects users to another URL.
+get\_connection: Establishes a connection to the MySQL database.
+load\_html: Loads HTML files from the application’s HTML directory.
+current\_user: Retrieves the currently authenticated user.
+Callable: Represents a function that can be called.
+Response: Base response class for HTML and redirect responses.
+
+\sphinxlineitem{Global Variables:}
+\sphinxAtStartPar
+router (APIRouter): Router used to register access\sphinxhyphen{}control endpoints.
+PAGES (list{[}str{]}): List of protected page names managed by this module.
+
+\sphinxlineitem{Protected Pages:}
+\sphinxAtStartPar
+page1, page2, page3, page4
+
+\end{description}
+\index{get\_user\_pages() (in module app.access)@\spxentry{get\_user\_pages()}\spxextra{in module app.access}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.access.get_user_pages}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.access.}}\sphinxbfcode{\sphinxupquote{get\_user\_pages}}}
+{\sphinxparam{\DUrole{n}{user\_id}}}
+{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Get all pages that a specific user is allowed to access.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{user\_id}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}\sphinxstyleliteralemphasis{\sphinxupquote{ or }}\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} Unique ID of the user.
+
+\end{description}\end{quote}
+\begin{description}
+\sphinxlineitem{What it does:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Connects to the database.
+
+\item {} 
+\sphinxAtStartPar
+Fetches all page names assigned to the given user\_id
+from the user\_pages table.
+
+\item {} 
+\sphinxAtStartPar
+Sorts the page names alphabetically.
+
+\item {} 
+\sphinxAtStartPar
+Closes the database connection.
+
+\end{enumerate}
+
+\end{description}
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{description}
+\sphinxlineitem{A list of page names assigned to the user.}
+\sphinxAtStartPar
+Returns an empty list if no pages are assigned.
+
+\end{description}
+
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+list{[}str{]}
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+\begin{description}
+\sphinxlineitem{Input:}
+\sphinxAtStartPar
+get\_user\_pages(101)
+
+\sphinxlineitem{Output:}
+\sphinxAtStartPar
+{[}‘Attendance’, ‘Dashboard’, ‘Employee’{]}
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{make\_page\_route() (in module app.access)@\spxentry{make\_page\_route()}\spxextra{in module app.access}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.access.make_page_route}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.access.}}\sphinxbfcode{\sphinxupquote{make\_page\_route}}}
+{\sphinxparam{\DUrole{n}{page\_name}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}}}
+{{ $\rightarrow$ Callable\DUrole{p}{{[}}\DUrole{p}{{[}}Request\DUrole{p}{{]}}\DUrole{p}{,}\DUrole{w}{ }Response\DUrole{p}{{]}}}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Create a page route handler with authentication
+and authorization checks.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{page\_name}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} Name of the HTML page to access.
+Example: “page1”, “page2”, “dashboard”.
+
+\end{description}\end{quote}
+\begin{description}
+\sphinxlineitem{What it does:}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
+\sphinxAtStartPar
+Creates an inner function named page\_view().
+
+\item {} 
+\sphinxAtStartPar
+Checks whether the user is logged in.
+
+\item {} 
+\sphinxAtStartPar
+Redirects unauthenticated users to the login page.
+
+\item {} 
+\sphinxAtStartPar
+Checks whether the requested page is assigned
+to the logged\sphinxhyphen{}in user.
+
+\item {} 
+\sphinxAtStartPar
+If access is denied, displays the denied.html page.
+
+\item {} 
+\sphinxAtStartPar
+If access is allowed, displays the requested HTML page.
+
+\end{enumerate}
+
+\end{description}
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+Returns a page\_view function that accepts an HTTP
+Request and returns an HTTP Response.
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+Callable{[}{[}Request{]}, Response{]}
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+make\_page\_route(“page1”)
+
+\sphinxAtStartPar
+Returns a page handler for page1.
+
+\end{fulllineitems}
+
 
 
 \subsection{db.py}
@@ -1113,6 +1992,214 @@ Perform database\sphinxhyphen{}related operations.
 
 \end{itemize}
 
+\sphinxAtStartPar
+\sphinxstylestrong{Example usage}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{app}\PYG{n+nn}{.}\PYG{n+nn}{db}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{get\PYGZus{}connection}
+
+\PYG{n}{conn} \PYG{o}{=} \PYG{n}{get\PYGZus{}connection}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{cursor} \PYG{o}{=} \PYG{n}{conn}\PYG{o}{.}\PYG{n}{cursor}\PYG{p}{(}\PYG{p}{)}
+\PYG{n}{cursor}\PYG{o}{.}\PYG{n}{execute}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{SELECT username FROM users WHERE username = }\PYG{l+s+si}{\PYGZpc{}s}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{priti}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{p}{)}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{cursor}\PYG{o}{.}\PYG{n}{fetchone}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}
+\PYG{n}{conn}\PYG{o}{.}\PYG{n}{close}\PYG{p}{(}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+\sphinxstylestrong{API reference}
+\index{module@\spxentry{module}!app.db@\spxentry{app.db}}\index{app.db@\spxentry{app.db}!module@\spxentry{module}}\phantomsection\label{\detokenize{modules:module-app.db}}
+\sphinxAtStartPar
+Database configuration module for the User Access Control application.
+
+\sphinxAtStartPar
+This module imports the required libraries and loads environment
+variables used for connecting to the MySQL database.
+\begin{description}
+\sphinxlineitem{Imports:}\begin{description}
+\sphinxlineitem{os: Provides functions to access environment variables and}
+\sphinxAtStartPar
+handle operating system paths.
+
+\end{description}
+
+\sphinxAtStartPar
+pymysql: Provides MySQL database connectivity and query execution.
+load\_dotenv: Loads database configuration variables from a .env file.
+
+\sphinxlineitem{Configuration:}
+\sphinxAtStartPar
+load\_dotenv(): Loads environment variables from the .env file
+into the application’s environment.
+
+\sphinxlineitem{Purpose:}
+\sphinxAtStartPar
+Provides the database configuration required by other modules
+to establish MySQL database connections.
+
+\end{description}
+\index{get\_connection() (in module app.db)@\spxentry{get\_connection()}\spxextra{in module app.db}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.db.get_connection}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.db.}}\sphinxbfcode{\sphinxupquote{get\_connection}}}
+{}
+{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Create and return a connection to the MySQL database.
+\begin{description}
+\sphinxlineitem{Reads the database configuration from environment variables:}
+\sphinxAtStartPar
+DB\_HOST: Database server hostname (default: localhost).
+DB\_PORT: Database server port (default: 3306).
+DB\_USER: Database username (default: root).
+DB\_PASSWORD: Database password.
+DB\_NAME: Database name (default: access\_demo).
+
+\end{description}
+
+\sphinxAtStartPar
+Uses DictCursor so query results are returned as dictionaries,
+allowing columns to be accessed by their names.
+\begin{quote}\begin{description}
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+An active MySQL database connection.
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+pymysql.connections.Connection
+
+\sphinxlineitem{Raises}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{pymysql.MySQLError}} \textendash{} If the database connection cannot be established.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{ValueError}} \textendash{} If DB\_PORT contains an invalid integer value.
+
+\end{itemize}
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+conn = get\_connection()
+cursor = conn.cursor()
+cursor.execute(“SELECT * FROM users”)
+users = cursor.fetchall()
+conn.close()
+
+\end{fulllineitems}
+
+\index{get\_user\_by\_id() (in module app.db)@\spxentry{get\_user\_by\_id()}\spxextra{in module app.db}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.db.get_user_by_id}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.db.}}\sphinxbfcode{\sphinxupquote{get\_user\_by\_id}}}
+{\sphinxparam{\DUrole{n}{user\_id}}}
+{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Retrieve a user record from the database using their user ID.
+
+\sphinxAtStartPar
+Establishes a database connection, executes a parameterized SQL query
+to find the user with the specified ID, and fetches the matching record.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{user\_id}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} The unique ID of the user to retrieve.
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+A dictionary containing the user’s database record
+if a matching user is found; otherwise, None.
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+dict | None
+
+\sphinxlineitem{Raises}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{pymysql.MySQLError}} \textendash{} If a database operation fails.
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+user = get\_user\_by\_id(1)
+\begin{description}
+\sphinxlineitem{if user:}
+\sphinxAtStartPar
+print(user{[}“username”{]})
+
+\sphinxlineitem{else:}
+\sphinxAtStartPar
+print(“User not found.”)
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{get\_user\_by\_username() (in module app.db)@\spxentry{get\_user\_by\_username()}\spxextra{in module app.db}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.db.get_user_by_username}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.db.}}\sphinxbfcode{\sphinxupquote{get\_user\_by\_username}}}
+{\sphinxparam{\DUrole{n}{username}}}
+{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Retrieve a user record from the database using their username.
+
+\sphinxAtStartPar
+Establishes a database connection, executes a parameterized SQL query
+to find the matching user, and fetches the first matching record.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{username}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} The username of the user to search for.
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+A dictionary containing the user’s database record
+if a matching user is found; otherwise, None.
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+dict | None
+
+\sphinxlineitem{Raises}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{pymysql.MySQLError}} \textendash{} If a database operation fails.
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+user = get\_user\_by\_username(“admin”)
+\begin{description}
+\sphinxlineitem{if user:}
+\sphinxAtStartPar
+print(user{[}“username”{]})
+
+\sphinxlineitem{else:}
+\sphinxAtStartPar
+print(“User not found.”)
+
+\end{description}
+
+\end{fulllineitems}
+
+
 
 \subsection{security.py}
 \label{\detokenize{modules:security-py}}
@@ -1132,6 +2219,110 @@ Verify passwords against stored hashes.
 
 \end{itemize}
 
+\sphinxAtStartPar
+\sphinxstylestrong{Example usage}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{app}\PYG{n+nn}{.}\PYG{n+nn}{security}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{hash\PYGZus{}password}\PYG{p}{,} \PYG{n}{verify\PYGZus{}password}
+
+\PYG{n}{hashed} \PYG{o}{=} \PYG{n}{hash\PYGZus{}password}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{MySecret@123}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{verify\PYGZus{}password}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{MySecret@123}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{hashed}\PYG{p}{)}\PYG{p}{)}   \PYG{c+c1}{\PYGZsh{} True}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{verify\PYGZus{}password}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{wrong}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{hashed}\PYG{p}{)}\PYG{p}{)}          \PYG{c+c1}{\PYGZsh{} False}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+\sphinxstylestrong{API reference}
+\index{module@\spxentry{module}!app.security@\spxentry{app.security}}\index{app.security@\spxentry{app.security}!module@\spxentry{module}}\index{hash\_password() (in module app.security)@\spxentry{hash\_password()}\spxextra{in module app.security}}\phantomsection\label{\detokenize{modules:module-app.security}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.security.hash_password}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.security.}}\sphinxbfcode{\sphinxupquote{hash\_password}}}
+{\sphinxparam{\DUrole{n}{plain\_password}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}}}
+{{ $\rightarrow$ str}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Hash a plain\sphinxhyphen{}text password using the bcrypt hashing algorithm.
+
+\sphinxAtStartPar
+Encodes the password into UTF\sphinxhyphen{}8 bytes, generates a random salt,
+and creates a secure password hash using bcrypt.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{plain\_password}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} The original plain\sphinxhyphen{}text password to hash.
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+The bcrypt password hash decoded as a UTF\sphinxhyphen{}8 string.
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+str
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+hashed = hash\_password(“admin123”)
+print(hashed)
+
+\end{fulllineitems}
+
+\index{verify\_password() (in module app.security)@\spxentry{verify\_password()}\spxextra{in module app.security}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.security.verify_password}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.security.}}\sphinxbfcode{\sphinxupquote{verify\_password}}}
+{\sphinxparam{\DUrole{n}{plain\_password}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}}\sphinxparamcomma \sphinxparam{\DUrole{n}{password\_hash}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}}}
+{{ $\rightarrow$ bool}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Verify a plain\sphinxhyphen{}text password against an existing bcrypt password hash.
+
+\sphinxAtStartPar
+Encodes the provided password and stored hash into UTF\sphinxhyphen{}8 bytes,
+then uses bcrypt to check whether the password matches the hash.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{plain\_password}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} The plain\sphinxhyphen{}text password entered by the user.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{password\_hash}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} The previously stored bcrypt password hash.
+
+\end{itemize}
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+\begin{description}
+\sphinxlineitem{True if the password matches the stored hash;}
+\sphinxAtStartPar
+otherwise, False.
+
+\end{description}
+
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+bool
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+hashed = hash\_password(“admin123”)
+is\_valid = verify\_password(“admin123”, hashed)
+print(is\_valid)  \# True
+
+\end{fulllineitems}
+
+
 
 \subsection{utils.py}
 \label{\detokenize{modules:utils-py}}
@@ -1150,6 +2341,127 @@ Provide common utility functionality.
 Avoid repeating shared logic across application modules.
 
 \end{itemize}
+
+\sphinxAtStartPar
+\sphinxstylestrong{Example usage}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{app}\PYG{n+nn}{.}\PYG{n+nn}{utils}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{some\PYGZus{}helper}
+
+\PYG{n}{result} \PYG{o}{=} \PYG{n}{some\PYGZus{}helper}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{input value}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+\sphinxstylestrong{API reference}
+\index{module@\spxentry{module}!app.utils@\spxentry{app.utils}}\index{app.utils@\spxentry{app.utils}!module@\spxentry{module}}\phantomsection\label{\detokenize{modules:module-app.utils}}
+\sphinxAtStartPar
+Utility functions for the User Access Control application.
+
+\sphinxAtStartPar
+This module provides common helper functions for locating application
+resources, loading HTML templates, and retrieving the currently
+authenticated user from the session.
+\index{current\_user() (in module app.utils)@\spxentry{current\_user()}\spxextra{in module app.utils}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.utils.current_user}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.utils.}}\sphinxbfcode{\sphinxupquote{current\_user}}}
+{\sphinxparam{\DUrole{n}{request}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{Request}}}
+{}
+\pysigstopsignatures
+\sphinxAtStartPar
+Retrieve the currently logged\sphinxhyphen{}in user’s database record.
+
+\sphinxAtStartPar
+Reads the user\_id from the request session and uses get\_user\_by\_id()
+to retrieve the corresponding user record from the database.
+
+\sphinxAtStartPar
+The login function (Member A) stores the user’s ID in the session
+after successful authentication.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{request}} (\sphinxstyleliteralemphasis{\sphinxupquote{Request}}) \textendash{} The incoming FastAPI request containing
+the user’s session information.
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+The logged\sphinxhyphen{}in user’s database record if a valid
+user\_id exists in the session; otherwise, None.
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+dict | None
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+user = current\_user(request)
+\begin{description}
+\sphinxlineitem{if user:}
+\sphinxAtStartPar
+print(user{[}“username”{]})
+
+\sphinxlineitem{else:}
+\sphinxAtStartPar
+print(“User is not logged in.”)
+
+\end{description}
+
+\end{fulllineitems}
+
+\index{load\_html() (in module app.utils)@\spxentry{load\_html()}\spxextra{in module app.utils}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:app.utils.load_html}}
+\pysigstartsignatures
+\pysiglinewithargsret
+{\sphinxcode{\sphinxupquote{app.utils.}}\sphinxbfcode{\sphinxupquote{load\_html}}}
+{\sphinxparam{\DUrole{n}{file\_name}\DUrole{p}{:}\DUrole{w}{ }\DUrole{n}{str}}}
+{{ $\rightarrow$ str}}
+\pysigstopsignatures
+\sphinxAtStartPar
+Read and return the contents of an HTML file from the app/html directory.
+
+\sphinxAtStartPar
+Constructs the file path using BASE\_DIR, opens the specified HTML
+file with UTF\sphinxhyphen{}8 encoding, and reads its contents.
+\begin{quote}\begin{description}
+\sphinxlineitem{Parameters}
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{file\_name}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} Name of the HTML file to read.
+
+\sphinxlineitem{Returns}
+\sphinxAtStartPar
+Contents of the HTML file as a string.
+
+\sphinxlineitem{Return type}
+\sphinxAtStartPar
+str
+
+\sphinxlineitem{Raises}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{FileNotFoundError}} \textendash{} If the specified HTML file does not exist.
+
+\item {} 
+\sphinxAtStartPar
+\sphinxstyleliteralstrong{\sphinxupquote{OSError}} \textendash{} If an error occurs while opening or reading the file.
+
+\end{itemize}
+
+\end{description}\end{quote}
+\subsubsection*{Example}
+
+\sphinxAtStartPar
+html = load\_html(“login.html”)
+
+\end{fulllineitems}
+
 
 
 \subsection{HTML Templates}
@@ -1561,6 +2873,17 @@ Following these steps helps prepare the User Access Control application
 for deployment in a suitable environment.
 
 
+\renewcommand{\indexname}{Python Module Index}
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\bigletter{a}
+\item\relax\sphinxstyleindexentry{app.access}\sphinxstyleindexpageref{modules:\detokenize{module-app.access}}
+\item\relax\sphinxstyleindexentry{app.auth}\sphinxstyleindexpageref{modules:\detokenize{module-app.auth}}
+\item\relax\sphinxstyleindexentry{app.db}\sphinxstyleindexpageref{modules:\detokenize{module-app.db}}
+\item\relax\sphinxstyleindexentry{app.main}\sphinxstyleindexpageref{modules:\detokenize{module-app.main}}
+\item\relax\sphinxstyleindexentry{app.security}\sphinxstyleindexpageref{modules:\detokenize{module-app.security}}
+\item\relax\sphinxstyleindexentry{app.utils}\sphinxstyleindexpageref{modules:\detokenize{module-app.utils}}
+\end{sphinxtheindex}
 
 \renewcommand{\indexname}{Index}
 \printindex

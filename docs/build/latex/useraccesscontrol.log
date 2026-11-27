@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.11.24)  24 NOV 2026 12:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.11.24)  27 NOV 2026 11:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -931,32 +931,52 @@ LaTeX Font Info:    Trying to load font information for T1+txtt on input line 3
  (C:\Users\hp\AppData\Local\Programs\MiKTeX\tex/latex/txfonts\t1txtt.fd
 File: t1txtt.fd 2000/12/15 v3.1
 )
-[8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] (useraccesscontrol.ind)
-[19] (useraccesscontrol.aux)
+[8] [9] [10] [11] [12]
+LaTeX Font Info:    Font shape `T1/txtt/b/n' in size <10> not available
+(Font)              Font shape `T1/txtt/bx/n' tried instead on input line 793.
+LaTeX Font Info:    Font shape `T1/txtt/m/it' in size <10> not available
+(Font)              Font shape `T1/txtt/m/sl' tried instead on input line 795.
+ [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
+[23] [24] [25] [26] [27] [28] [29] [30] [31
+
+
+
+] (useraccesscontrol.ind [32
+
+
+]
+[33
+
+]) (useraccesscontrol.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `useraccesscontrol.out' has not changed.
-(rerunfilecheck)             Checksum: 918F60887F01ECF83AB972C9FA7EA36B;14604.
+(rerunfilecheck)             Checksum: AABF43A2B14A4A78B3501FAA8F1AAA90;16387.
  ) 
 Here is how much of TeX's memory you used:
- 21749 strings out of 467871
- 401510 string characters out of 5419827
- 813209 words of memory out of 5000000
- 50015 multiletter control sequences out of 15000+600000
- 678315 words of font info for 79 fonts, out of 8000000 for 9000
+ 21974 strings out of 467871
+ 405157 string characters out of 5419827
+ 814466 words of memory out of 5000000
+ 50077 multiletter control sequences out of 15000+600000
+ 681847 words of font info for 82 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 72i,11n,82p,1208b,670s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qhvb.p
-fb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qhvbi
-.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qtm
-b.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/qt
-mr.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/txfonts/t1
-xtt.pfb>
-Output written on useraccesscontrol.pdf (23 pages, 202052 bytes).
+ 72i,11n,82p,1208b,735s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cms
+y10.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre/
+qhvb.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gyre
+/qhvbi.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-gy
+re/qhvr.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-g
+yre/qtmb.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex-
+gyre/qtmr.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/tex
+-gyre/qtmri.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public/t
+xfonts/t1xbtt.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/txfonts/t1xtt.pfb><C:/Users/hp/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/txfonts/t1xtt.pfb>
+Output written on useraccesscontrol.pdf (37 pages, 330908 bytes).
 PDF statistics:
- 686 PDF objects out of 1000 (max. 8388607)
- 221 named destinations out of 1000 (max. 500000)
- 813 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1007 PDF objects out of 1200 (max. 8388607)
+ 378 named destinations out of 1000 (max. 500000)
+ 901 words of extra memory for PDF output out of 10000 (max. 10000000)
 
